@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* unvisited link*/
+        a:link{
+            color: #FF0000;
+        }
+        /* visited link */
+        a:visited {
+        color: #00FF00;
+        }
+        /* mouse over link */
+        a:hover {
+        color: #5500ff;
+        }
+        /* selected link */
+        a:active {
+        color: #ff00d9;
+        }
+        div:hover{
+            background-color: blue;
+        }
+        li:first-child{
+            color: green;
+        }
+        li:last-child{
+            color: #5500ff;
+        }
+        li:nth-child(2){
+            background-color: lightgrey;
+        }
+        p:nth-of-type(2){
+            font-style: italic;
+        }
+        p::first-letter {
+            color: #ff0000;
+            font-size: xx-large;
+        }
+        p::first-line{
+            color: #FF0000;
+            font-variant: small-caps ;
+        }
+        input:required{
+            border: 2px solid red;
+        }
+        input:checked{
+            outline: 2px solid green;
+        }
+        input:disabled{
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://www.w3schools.com/css/css_pseudo_classes.asp">Pseudo class</a>
+    <hr>
+    <h3>Hover on div</h3>
+    <div>hii this is a paragraph</div>
+    <hr>
+    <h3>First, last and nth child</h3>
+    <ul>
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+    </ul>
+    <p>I am <i>first</i> para I am a <i>strong</i> person.</p>
+    <p>I am second para</p>
+    <p>I am third para</p>
+
+    <hr>
+    <h3>Form state</h3>
+    <form action="">
+        <input type="text" required>
+        <input type="checkbox" checked >
+        <input type="text" disabled>
+    </form>
+</body>
+</html>

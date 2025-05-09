@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            position: relative;
+        }
+        .black-box{
+            position: relative;
+            z-index: 1;
+            border: 2px solid black;
+            height: 100px;
+            margin: 30px;
+        }
+        .gray-box {
+        position: absolute;
+        z-index: 2;
+        background: lightgray;
+        height: 60px;
+        width: 70%;
+        left: 50px;
+        top: 50px;
+        }
+        .green-box {
+        position: absolute;
+        z-index: 3;
+        background: lightgreen;
+        width: 35%;
+        left: 270px;
+        top: -15px;
+        height: 100px;
+        }
+        #overflow{
+            width: 200px;
+            height: 65px;
+            background-color: coral;
+            /* overflow: scroll; */
+            overflow-x: hidden;
+            overflow-y: scroll;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="black-box">Black box</div>
+        <div class="gray-box">Gray box</div>
+        <div class="green-box">Green box</div>
+      </div>
+      <hr>
+      <h3>Overflow</h3>
+      <div id="overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id hic fuga dicta. Beatae odit, similique dicta atque velit aut ab obcaecati commodi! Expedita consequatur numquam, optio dolorem fugit iusto eius?</div>
+</body>
+</html>

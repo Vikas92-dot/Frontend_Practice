@@ -1,0 +1,430 @@
+-------------------------YuvaSoft Training Period----------------------
+
+Day-1
+
+-Learn HTML and CSS from W3SCHOOLS
+
+-----------------------------------------
+**HTML Attributes-
+	 provide additional information about elements.
+	ex- <a href="www"
+	href is attribute and always specified in the start tag.
+
+	1. title attribute-The title attribute defines some extra information about an element.
+
+	The value of the title attribute will be displayed as a tooltip when you mouse over the element:
+Chapter Summary
+ All HTML elements can have attributes 
+ The href attribute of <a> specifies the URL of the page the link goes to
+ The src attribute of <img> specifies the path to the image to be displayed
+ The width and height attributes of <img> provide size information for images
+ The alt attribute of <img> provides an alternate text for an image
+ The style attribute is used to add styles to an element, such as color, font, size, and more
+ The lang attribute of the <html> tag declares the language of the Web page
+ The title attribute defines some extra information about an element
+
+**Headings**
+
+-Search engines use the headings to index the structure and content of your web pages.
+ Users often skim a page by its headings. It is important to use headings to show the document structure.
+ <h1> headings should be used for main headings, followed by <h2> headings, then the less important <h3>, and so on
+	
+-We can change font size of the heading through style attribute.
+
+**Paragraph**
+
+-The HTML <p> element defines a paragraph.
+-A paragraph always starts on a new line, and browsers automatically add some white space (a margin) before and after a paragraph.
+
+**hr tag**
+
+	-The <hr> tag defines a thematic break in an HTML page, and is most often displayed as a horizontal rule.
+         --------------------------------------------------------------------------------------
+	-The <hr> element is used to separate content (or define a change) in an HTML page:
+
+**br tag**
+
+	-br tag define a line break
+	-Use <br> if you want a line break (a new line) without starting a new paragraph
+
+**pre tag**
+
+	-The HTML <pre> element defines preformatted text.
+	-The text inside a <pre> element is displayed in a fixed-width font (usually Courier), 
+	 and it preserves both spaces and line breaks
+
+Q------------Difference between align-items and justify-content
+	-text-align: center:
+	 This property is used to center the content (including text) inside a block-level element (like a div, p, or h1) horizontally. 
+	 It's a direct way to center text within a container. 
+
+	-justify-content: center
+	 This property is part of the Flexbox layout module. It controls the alignment of flex items along the main axis of a flex container. 
+	 When justify-content: center is applied, flex items will be positioned in the center of their container's main axis. 
+
+**HTML Formatting Elements**
+	
+	-Formatting elements were designed to display special types of text
+	<b> - Bold text
+	<strong> - Important text
+	<i> - Italic text
+	<em> - Emphasized text
+	<mark> - Marked text
+	<small> - Smaller text
+	<del> - Deleted text
+	<ins> - Inserted text
+	<sub> - Subscript text
+	<sup> - Superscript text
+
+**HTML Quotations and Citations**
+
+	-Tag		Description
+
+	<abbr>	        Defines an abbreviation or acronym
+	<address>	Defines contact information for the author/owner of a document
+	<bdo>	        Defines the text direction
+	<blockquote>	Defines a section that is quoted from another source
+	<cite>	        Defines the title of a work
+	<q>	        Defines a short inline quotation
+-------------------------------------------------------------------------------------------------------------------------------------
+
+==============CSS=============
+
+Cascading Style Sheets (CSS) is used to format the layout of a webpage.
+
+With CSS, you can control the color, font, the size of text, the spacing between elements, how elements are positioned and laid out, 
+what background images or background colors are to be used, different displays for different devices and screen sizes, and much more!
+
+Using CSS
+CSS can be added to HTML documents in 3 ways:
+
+Inline - by using the style attribute inside HTML elements
+Internal - by using a <style> element in the <head> section
+External - by using a <link> element to link to an external CSS file
+
+-Use the HTML style attribute for inline styling
+-Use the HTML <style> element to define internal CSS
+-Use the HTML <link> element to refer to an external CSS file
+-Use the HTML <head> element to store <style> and <link> elements
+-Use the CSS color property for text colors
+-Use the CSS font-family property for text fonts
+-Use the CSS font-size property for text sizes
+-Use the CSS border property for borders
+-Use the CSS padding property for space inside the border
+-Use the CSS margin property for space outside the border
+
+**Link**
+
+	-Use the <a> element to define a link
+	-Use the href attribute to define the link address
+	-Use the target attribute to define where to open the linked document
+	-Use the <img> element (inside <a>) to use an image as a link
+	-Use the mailto: scheme inside the href attribute to create a link that opens the user's email program
+
+**Table**
+
+	<table style="width:100%">
+        <tr>
+            
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+            
+        </tr>
+        <tr style="text-align: center;">
+            
+                <td >Alfreds</td>
+                <td>Maria</td>
+                <td>Germany</td>
+            
+        </tr>
+        <tr style="text-align: center;">
+            <td>Centro</td>
+            <td>Fransico</td>
+            <td>Mexico</td>
+        </tr>
+    </table>
+
+	-============Vertical tables=================
+
+	<table>
+  <tr>
+    <th>Firstname</th>
+    <td>Jill</td>
+    <td>Eve</td>
+  </tr>
+  <tr>
+    <th>Lastname</th>
+    <td>Smith</td>
+    <td>Jackson</td>
+  </tr>
+  <tr>
+    <th>Age</th>
+    <td>94</td>
+    <td>50</td>
+  </tr>
+</table>
+
+	===========Header for multiple columns==========
+
+	<tr>
+    <th colspan="2">Name</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+	
+	===========Table Captions=============
+	You can add a caption that serves as a heading for the entire table.
+
+	<table style="width:100%">
+  		<caption>Monthly savings</caption>
+  	<tr>
+   		 <th>Month</th>
+    		<th>Savings</th>
+  	</tr>
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+============================= Day - 2 ====================================
+**List**
+
+	-Unordered List
+Use the HTML <ul> element to define an unordered list
+Use the CSS list-style-type property to define the list item marker
+Use the HTML <li> element to define a list item
+Lists can be nested
+List items can contain other HTML elements
+Use the CSS property float:left to display a list horizontally
+	
+	-Ordered List
+-We can define type like 1, A,a, I,i for numbering.
+-We can also customized start number like start="50"
+
+**HTML Block & inline**
+
+	-Block elements are those elements which start from new line and takes full width
+	ex. div, paragraph, header , footer, table etc.
+
+	-inline elements doesn't start from new line and it takes as much width as neccessary.
+	ex. span, anchor , button , img, strong etc.
+
+**HTML Form**
+
+	-fieldset element is used to group related data in a form.
+	-target element defines a caption for the <fieldset> element.
+	
+<form>		Defines an HTML form for user input
+<input>		Defines an input control
+<textarea>	Defines a multiline input control (text area)
+<label>		Defines a label for an <input> element
+<fieldset>	Groups related elements in a form
+<legend>	Defines a caption for a <fieldset> element
+<select>	Defines a drop-down list
+<optgroup>	Defines a group of related options in a drop-down list
+<option>	Defines an option in a drop-down list
+<button>	Defines a clickable button
+<datalist>	Specifies a list of pre-defined options for input controls
+<output>	Defines the result of a calculation
+
+**CSS Selectors**
+	
+CSS selectors are used to "find" (or select) the HTML elements you want to style.
+
+We can divide CSS selectors into five categories:
+
+==Simple selectors (select elements based on name, id, class)
+
+	Selector	Example		Example description
+	#id		#firstname	Selects the element with id="firstname"
+	.class		.intro		Selects all elements with class="intro"
+	*		*		Selects all elements
+	element		p		Selects all <p> elements
+	element,element,..div, p	Selects all <div> elements and all <p> elements	
+
+
+Combinator selectors (select elements based on a specific relationship between them)
+Pseudo-class selectors (select elements based on a certain state)
+Pseudo-elements selectors (select and style a part of an element)
+Attribute selectors (select elements based on an attribute or attribute value)
+
+**Box-model**
+	-margin, border, padding and content.
+
+**Position**
+	-Fixed - it will fixed even when you scrolling.
+	-relative- moves elements from its normal position.
+	-absoulute- moves elements from its parent element or body.
+	-Sticky- An element with position: sticky; is positioned based on the user's scroll position.
+	-Static- by default position
+	
+**Z-index**
+	-When elements are positioned, they can overlap other elements.
+
+	-The z-index property specifies the stack order of an element (which element should be placed in front of, or behind, the others).
+
+	-An element can have a positive or negative stack order:
+	 The z-index in CSS is a property that controls the stacking order of elements on a webpage along the z-axis (i.e., front-to-back).
+	 Elements with a higher z-index appear in front of elements with a lower z-index.
+
+**Overflow**
+	-In CSS, the overflow property controls what happens when content overflows the boundaries of its container 
+	(i.e., it doesn't fit inside the defined width or height).
+	
+	===Types===
+	
+	visible (default): Content overflows and is visible outside the element's box.
+
+	hidden: Overflowing content is clipped (cut off) and not visible.
+
+	scroll: Always shows scrollbars, even if not needed.
+
+	auto: Scrollbars are shown only when necessary (if content overflows).
+
+	Overflow-x : Specifies what to do with the left/right edges of the content if it overflows the element's content area.
+	
+	Overflow-y: Specifies what to do with the top/bottom edges of the content if it overflows the element's content area.
+
+**Pseudo class**
+
+	-pseudo-classes are keywords added to selectors that define a special state of an element without needing to add 
+	a class or ID in HTML.
+
+	selector:pseudo-class {
+  	   property: value;
+	}
+	
+	== User action pseudo class - visited, unvisited, mouse hover link, selected link(active),
+	== Structural pseudo classes - first child, last child ,nth child, nth-of-type
+	== Form state pseudo classes
+
+**Float** 
+
+	-The float property in CSS is used to position elements to the left or right within their container, 
+	allowing text or other inline elements to wrap around them — like how images often appear next to paragraphs in articles
+
+**Navigation Bar**
+
+	-Horizontal + Vertical
+===================================================Day - 3==========================================================
+**CSS Forms**
+
+	-Box-sizing: Border-box   
+		-by border box padding and margin included in total width 
+	-style form using css
+	-apply search image on input field.
+	-Animate search input
+	-Textarea design with resize : none
+	-Making responsive by applying media query
+
+**Counters**    
+
+	-A CSS counter is like a number that automatically counts things on your webpage.
+
+	You can use it to automatically number:
+
+		-Headings
+
+		-Sections
+
+		-List items
+	
+		-Steps in a tutorial
+
+		-You don’t need to write the numbers manually — CSS will do it for you.
+  
+**Pagination**
+
+	-Pagination means breaking content into multiple pages and giving users buttons to navigate between them
+
+		-Pagination is not a CSS feature.
+
+		-But in CSS, you style the pagination buttons (HTML links or list items).
+
+		-It improves user experience by making content easy to browse in parts.   
+**FlexBox**
+
+	-Flexbox is short for the Flexible Box Layout module.
+	-Flexbox is a layout method for arranging items in rows or columns.
+	-Flexbox makes it easier to design a flexible responsive layout structure, without using float or positioning. 
+
+	
+	.flex-container > div {                             > ye sign ka matlb hai ki jo bhi immediate div hai uspe apply hoga
+  				background-color: #f1f1f1;
+  				margin: 10px;
+  				padding: 20px;
+  				font-size: 30px;
+				}  
+**Grid**
+
+	-CSS Grid is a layout system in CSS that helps you build two-dimensional layouts — like tables, image galleries, dashboards, etc.
+
+	-Unlike Flexbox (1D layout: row or column), Grid lets you control both rows and columns together.
+
+		======grid-template-columns: repeat(3, 1fr);
+			-This means:
+
+			Create 3 columns 
+
+			Each column gets 1 equal part of the available space
+			→ So it's like: 1fr 1fr 1fr (each column = 33.3% of space)
+		===== grid-template-areas: 
+			grid-template-areas:
+                				"header header" /*for both column*/
+              					"menu content"  /*menu is on the left, content on the right*/
+               					"footer footer"; /*for both column*/
+		==Grid column gap property
+**Transition**
+
+	-CSS transitions allows you to change property values smoothly, over a given duration.
+
+	==transition-timing-function-
+	
+	The transition-timing-function property can have the following values:
+
+		ease - specifies a transition effect with a slow start, then fast, then end slowly (this is default)
+		linear - specifies a transition effect with the same speed from start to end
+		ease-in - specifies a transition effect with a slow start
+		ease-out - specifies a transition effect with a slow end
+		ease-in-out - specifies a transition effect with a slow start and end
+
+**Animation**
+
+	-An animation lets an element gradually change from one style to another.
+
+	-You can change as many CSS properties you want, as many times as you want.
+
+	-To use CSS animation, you must first specify some keyframes for the animation.
+
+	-Keyframes hold what styles the element will have at certain times.
+
+//CSS Animation Properties
+
+The following table lists the @keyframes rule and all the CSS animation properties:
+
+	Property		Description
+	@keyframes		Specifies the animation code
+	animation		A shorthand property for setting all the animation properties
+	animation-delay		Specifies a delay for the start of an animation
+	animation-direction	Specifies whether an animation should be played forwards, backwards or in alternate cycles
+	animation-duration	Specifies how long time an animation should take to complete one cycle
+	animation-fill-mode	Specifies a style for the element when the animation is not playing (before it starts, after it ends, or both)
+	animation-iteration-count	Specifies the number of times an animation should be played	
+	animation-name			Specifies the name of the @keyframes animation
+	animation-play-state		Specifies whether the animation is running or paused
+	animation-timing-function	Specifies the speed curve of the animation
+
+=====================================================Day-4==================================================================================
+
+**Practice Topics of HTML and CSS**
+	
+	1. Create Nav bar and add background image and Header.
+	2. Create Table and style with CSS
+	3. Create SignUp form with using all inputs
+	4. Apply dropdown list and pseudo class in links
+	5. Image gallery
+	
+	

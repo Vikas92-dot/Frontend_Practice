@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nested CSS Counters</title>
+  <style>
+    body {
+      counter-reset: section; /* Outer section counter */
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      counter-reset: subsection; /* Reset subsection for each h2 */
+    }
+
+    h2::before {
+      counter-increment: section; /* Increase section number */
+      content: "Section " counter(section) ": ";
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    h3::before {
+      counter-increment: subsection; /* Increase subsection number */
+      content: "Section " counter(section)"." counter(subsection) ": ";
+      font-weight: normal;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Introduction</h2>
+  <h3>Background</h3>
+  <h3>Purpose</h3>
+
+  <h2>Features</h2>
+  <h3>Highlights</h3>
+  <h3>Technical Details</h3>
+
+  <h2>Contact</h2>
+  <h3>Email</h3>
+  <h3>Phone</h3>
+
+</body>
+</html>

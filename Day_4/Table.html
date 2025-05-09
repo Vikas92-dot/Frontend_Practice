@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        h1{
+            text-align: center;
+            background-color: paleturquoise;
+            margin: 0;
+            padding: 12px;
+        }
+        table{
+            position: relative;
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: auto;
+        }
+        th{
+            background-color: rgb(170, 235, 17);
+            border: 1px solid black;
+            
+        }
+        td{
+            background-color: rgb(43, 189, 226);
+            text-align: center;
+            border: 1px solid black;
+            
+        }
+        th,td{
+            padding: 20px;
+            border-style: dashed;
+        }
+        caption{
+            background-color: aqua;
+            font-size: 20px;
+            padding: 5px;
+            border: 1px solid black;
+            border-style: dashed;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student List</h1>
+    <table>
+        <tr>
+            <th>Sr no.</th>
+            <th>Name</th>
+            <th>age</th>
+            <th>Course</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Aman Sharma</td>
+            <td>25</td>
+            <td>IT</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Sachin Sharma</td>
+            <td>23</td>
+            <td>CV</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Abhay Pandey</td>
+            <td>20</td>
+            <td>MECH</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Rahul Sharma</td>
+            <td>22</td>
+            <td>CS</td>
+        </tr>
+        
+    </table>
+    <hr>
+    <h2>Vertical Table</h2>
+    <table>
+        <caption>Student Data</caption>
+        <tr>
+            <th rowspan="2">First name</th>
+            <td>Rahul</td>
+            <td>Vishal</td>
+        </tr>
+        <tr>
+            <td>Sharma</td>
+            <td>Verma</td>
+        </tr>
+    </table>
+</body>
+</html>

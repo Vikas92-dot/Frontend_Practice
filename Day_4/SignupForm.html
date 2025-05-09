@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        div{
+            background-color: rgb(71, 69, 69);
+            height: auto;
+            border: 1px solid black;
+            border-radius: 20px;
+            width: 50%;
+            margin: 50px;
+            position: relative;
+            left: 25%;
+            padding: 20px;
+        }
+        h2{
+            color: white;
+            text-align: center;
+        }
+        label{
+            color: white;
+            float: left;
+            /* display: block; */
+            margin: 10px 0 5px;
+        }
+        form{
+            padding: 10px;
+            text-align: center;
+            justify-content: space-around;
+        }
+        input[type=text],
+        input[type=email],
+        input[type=tel],
+        textarea,
+        select{
+            width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 15px;
+        }
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        input[type="submit"]{
+            padding: 10px;
+            border-radius:5px;
+            border: none;
+        }
+        input[type="submit"]:hover{
+            background-color: aqua;
+        }
+        span{
+            color: white;
+            margin-right: 15px;
+        }
+        textarea{
+            padding: 10px;
+            border-radius: 10px;
+
+        }
+        select{
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Create an Account</h2>
+        <hr>
+        <form action="">
+            <label for="">Name:</label>
+            <input type="text" placeholder="Enter Your Name" >
+            <br><br>    
+            <label for="">Email:</label>
+            <input type="email" placeholder="Enter Your Email" >
+            <br><br>
+            <label for="">Contact:</label>
+            <input type="tel" placeholder="Enter Your Contact" >
+            <br><br>
+            <label for="">Do you want Subscription?</label>
+            <input type="radio" name="subscription" id="yes" value="yes">
+            <span>Yes</span>
+            <input type="radio" name="subscription" id="no" value="no">
+            <span>No</span>
+            <br><br>
+            <label for="">Address:</label>
+            <textarea name="Enter your address" id="" placeholder="Enter address"></textarea>
+            <br><br>
+            <label for="">Choose your Country:</label>
+            <select name="" id="">
+                <option value="india">India</option>
+                <option value="australia">Australia</option>
+                <option value="russia">Russia</option>
+                <option value="nepal">Nepal</option>
+            </select>
+            <br><br>
+            <label for="">Documents Submit:</label>
+            <input type="checkbox" id="document1" name="document1" value="aadhar card" >
+            <span>Aadhar Card</span>
+            
+            <input type="checkbox" id="document2" name="document2" value="pan card" >
+            <span>PAN Card</span>
+
+            <input type="checkbox" id="document3" name="document3" value="voter id" >
+            <span>Voter ID</span>
+            <br><br>
+            <input style="background-color: dodgerblue; color: white; cursor: pointer;" type="submit" name="Submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

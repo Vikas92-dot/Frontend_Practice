@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #first{
+            border: 1px solid black;
+            border-style: dashed;
+            border-width: medium;
+            border-color: red ;
+            border-top-style: dotted;
+            border-right-style: solid;
+            border-bottom-style: dotted;
+            border-left-style: solid;
+        }
+        #second{
+            margin-top: 100px;
+            margin-bottom: 100px;
+            margin-right: 150px;
+            margin-left: 80px;
+            border: 1px solid black;
+        }
+        h1{
+            margin: 0 0 50px 0;
+        }
+        h2{
+            margin: 20px 0 20px 0;
+        }
+        /* div{
+            padding-top: 50px;
+            padding-right: 30px;
+            padding-bottom: 50px;
+            padding-left: 80px;
+        } */
+         #static{
+            position: static;
+            border: 3px solid #73AD21;
+            height: 50px;
+            width: 50px;
+         }
+         #fixed{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            border: 3px solid #73AD21;
+            height: 50px;
+            width: 50px;
+         }
+         #relative{
+            position: relative;
+            left: 20px;
+            width: 400px;
+            height: 200px;
+            border: 3px solid #73AD21;
+         }
+         #absolute{
+            position: absolute;
+            top: 100px;
+            width: 200px;
+            height: 100px;
+            border: 3px solid #73AD21;
+         }
+         #sticky{
+            position: sticky;
+            top: 0px;
+            bottom: 500px;
+            width: 200px;
+            height: 100px;
+            background-color: gray;
+            border: 3px solid #73AD21;
+         }
+    </style>
+</head>
+<body>
+    <p id="first">This is a paragraph for checking border.</p>
+    <p id="second">This is for checking margin</p>
+    <h1>Margin collapse</h1>
+    <h2>Margin collapse</h2>
+
+    <div>For checking padding</div>
+    <hr>
+    <h3>Position</h3>
+        <div id="static">Static</div>
+        <div id="relative">Relative</div>
+        <div id="fixed">Fixed</div>
+        <div id="absolute">Absolute</div>
+        <div id="sticky">Sticky</div>
+</body>
+</html>

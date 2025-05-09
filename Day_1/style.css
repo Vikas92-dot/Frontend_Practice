@@ -1,0 +1,35 @@
+body{
+    background-color: rgb(152, 236, 251);
+}
+h1{
+    color: blue;
+}
+p{
+    color: red;
+    border: 2px solid rgb(212, 41, 190);
+    padding: 20px;
+}
+a:link {
+    color: green;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: pink;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  

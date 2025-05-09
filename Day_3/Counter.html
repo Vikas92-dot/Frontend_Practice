@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Counter Example</title>
+  <style>
+    body {
+      counter-reset: section; /* Step 1: Start/reset counter */
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    p::before {
+      counter-increment: section; /* Step 2: Increase counter on each h2 */
+      content: "Section " counter(section) ": "; /* Step 3: Show the number */
+      font-weight: bold;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Introduction</h2>
+  <p>This is the intro section.</p>
+
+  <h2>Features</h2>
+  <p>Here are the key features.</p>
+
+  <h2>Contact</h2>
+  <p>Get in touch with us.</p>
+
+</body>
+</html>
