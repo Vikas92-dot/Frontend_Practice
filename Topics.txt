@@ -426,5 +426,33 @@ The following table lists the @keyframes rule and all the CSS animation properti
 	3. Create SignUp form with using all inputs
 	4. Apply dropdown list and pseudo class in links
 	5. Image gallery
+**Image gallery**
 	
+	#Image sprites
+====================================================Day-5=================================================================================
+
+**CSS Border radius**
+
+	-Apply multiple borders
+
+**Bootstrap**
+	
+	-Bootstrap is a free front-end framework for faster and easier web development
+	-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, 
+	 navigation, modals, image carousels and many other, as well as optional JavaScript plugins
+	-Bootstrap also gives you the ability to easily create responsive designs
+	
+**Bootstrap container**
+	-container and container-fluid they have fixed width with responsiveness.
+
+**Bootstrap grid system**
+
+	-Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page.
+
+	-If you do not want to use all 12 columns individually, you can group the columns together to create wider columns:
+
+---------------------------------------------JavaScript--------------------------------------------------------------------------
+
+		Javascript is a programming language primarily used to make web pages interactive.It's often used alongside html and css 
+		to add dynamic features and functionality to websites like animations, interactive elements and more.
 	

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #rcorners1{
+            height: 100px;
+            width: 200px;
+            background-color: darkcyan;
+            /* border-radius: 15px 50px 30px 5px; */
+            border-radius: 50px / 15px;
+            padding: 20px;  
+        }
+        #rcorners2{
+            height: 100px;
+            width: 200px;
+            background-color: dodgerblue;
+            /* border-radius: 15px 50px 30px; */
+            border-radius: 15px/50px;
+        }
+        #rcorners3{
+            height: 100px;
+            width: 200px;
+            background-color: darkorchid;
+            /* border-radius: 15px 50px; */
+            border-radius: 50%;
+        }
+        #rcorners4{
+            height: 100px;
+            width: 200px;
+            background-color: firebrick;
+            border-radius: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Border radius property</h2>
+
+    <p>Four values border radius: 15px 50px 30px 5px:</p>
+    <p id="rcorners1"></p>
+
+    <p>Three values border radius: 15px 50px 30px:</p>
+    <p id="rcorners2"></p>
+
+    <p>Two values border radius: 15px 50px:</p>
+    <p id="rcorners3"></p>
+
+    <p>One value border radius: 15px:</p>
+    <p id="rcorners4"></p>
+
+</body>
+</html>
