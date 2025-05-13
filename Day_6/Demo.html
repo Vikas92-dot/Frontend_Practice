@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h3>Different way to display objects</h3>
+    <div id="demo"></div>
+    <div id="demo2"></div>
+    <div id="demo3"></div>
+    <div id="demo4"></div>
+    <div id="demo5"></div>
+    <script>
+        const person = {
+            name:"Vikas",
+            age:25,
+            city:"Indore"
+        };
+        // document.getElementById("demo").innerHTML = `My name is ${person.name}`
+
+        //-------display properties in a loop
+        let text="";
+        for(let x in person){
+            text += person[x]+ " ";
+        }
+        // document.getElementById('demo').innerText = text;
+
+        //---------Using Object.values() 
+        // it creates an array
+        const myArray = Object.values(person);
+
+         document.getElementById("demo").innerHTML = myArray;
+
+
+         //----Object constructor functions
+
+         function Person1(first,last,age,eye){
+            this.first = first;
+            this.last = last;
+            this.age = age;
+            this.eye = eye;
+         }
+
+         //we can create many objects using new Person1()
+
+         const myFather = new Person1("Ram","Singh",50,"Blue");
+         const myMother = new Person1("Sita","Singh",45,"Green");
+
+         document.getElementById('demo2').innerHTML = myFather.first;
+
+         //Padstart
+         let pad = '5';
+         pad = pad.padStart(4,"0");
+
+         document.getElementById('demo3').innerHTML = pad;
+
+         //PadEnd
+
+         let end = '5';
+         end = end.padEnd(4,"0");
+
+         document.getElementById('demo4').innerHTML = end;
+
+         //repeat it will return which count we passed
+
+         let repeat = "Hello world";
+         let repeat1 = repeat.repeat(3);
+
+         document.getElementById('demo4').innerHTML = repeat1
+
+         //replace method
+         let str = "helololo";
+         
+
+
+
+    </script>
+</body>
+</html>

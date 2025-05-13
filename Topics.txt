@@ -455,4 +455,187 @@ The following table lists the @keyframes rule and all the CSS animation properti
 
 		Javascript is a programming language primarily used to make web pages interactive.It's often used alongside html and css 
 		to add dynamic features and functionality to websites like animations, interactive elements and more.
+
+**DataTypes**
 	
+	1. JavaScript BigInt
+
+	All JavaScript numbers are stored in a 64-bit floating-point format.
+	JavaScript BigInt is a new datatype (ES2020) that can be used to store integer values that are too 
+	big to be represented by a normal JavaScript Number.
+
+	let big = BigInt("123456789012345678901234567890");
+	console.log(big);
+
+**Functions**
+
+	-JS function is a block of code designed to perform a particular task.
+	-function is executed when something invoked it.
+
+
+==============================================================Day-6===============================================================
+**Objects**
+	
+	-An object in JavaScript is a collection of key-value pairs.
+	Each key (also called a property or name) is a string, and each value can be anything: a number, string, function, array, 
+	or even another object.
+
+	==Nested objects -
+	==Object destructuring- unpack values from an object into variables easily.
+	
+	==Ways to display objects==
+	-Object.values() creates an array from the property values:
+
+**Object Constructor Functions**
+
+	-Sometimes we need to create many objects of the same type.
+
+	-To create an object type we use an object constructor function.
+
+	-It is considered good practice to name constructor functions with an upper-case first letter.
+
+**Events**
+
+	-An event is something that happens in the browser — like a button click, a key press, mouse hover, or page load.
+
+	-JavaScript can listen for these events and then run some code when they happen.
+	
+	1.Button click event
+	2.Apply add event listener
+	3.Input key press event
+
+**String**
+
+	-String is a sequence of characters and it is immutable.
+	
+**String Methods**
+	
+	==Extracting String Parts==
+	There are 3 methods for extracting a part of a string:
+
+		-slice(start, end)
+		-substring(start, end)
+		-substr(start, length)
+	==Difference between slice and substring 
+		-if we pass negative value in slice then it will count index from end
+		-if we pass negative value in substring then it will count as 0 and start from zero index.
+
+	==PadStart() method is a String method.To pad a number,convert a number to a string first.
+	==PadEnd() method pads a string from the end. 
+	==repeat() method returns a string with a number of copies of a string.
+	==replace() method
+			-The replace() method does not change the string it is called on.
+
+			-The replace() method returns a new string.
+
+			-The replace() method replaces only the first match and it is a case sensitive.
+
+			-To replace case insensitive, use a regular expression with an /i flag (insensitive):
+			
+			-in place of replaceAll we can use regular expression with a '/g' flag for global match.
+	==replaceAll() method
+			-it is replace multiple values.
+
+	==String split()--A string can be converted to an array with the split() method:
+
+**String search methods**
+	
+	1.indexOf() - The indexOf() method returns the index (position) of the first occurrence of a string in a string, 
+	  or it returns -1 if the string is not found
+
+	2.lastIndexOf() - The lastIndexOf() method returns the index of the last occurrence of a specified text in a string:
+		===Both the method take 2 parameters second is starting position/index of search.
+
+	3.search() - The search() method searches a string for a string (or a regular expression) and returns the position of the match:
+
+	*****Difference b/w indexOf and search*****
+		-The search() method cannot take a second start position argument.
+		-The indexOf() method cannot take powerful search values (regular expressions). 
+
+	4.match()-The match() method returns an array containing the results of matching a string against a string 
+		  (or a regular expression).
+	5.matchAll()- The matchAll() method returns an iterator containing the results of matching a string against a string 
+		  (or a regular expression)
+	6.includes()-The includes() method returns true if a string contains a specified value.Otherwise it returns false
+	7.startsWith()- The startsWith() method returns true if a string begins with a specified value.
+	Otherwise it returns false.
+
+**Numbers**
+	
+	==Hexadecimal==
+		--JavaScript interprets numeric constants as hexadecimal if they are preceded by 0x.
+	==toFixed()- toFixed() returns a string, with the number written with a specified number of decimals.
+	==valueOf()- The valueOf() method is used internally in JavaScript to convert Number objects to primitive values.
+
+**Arrays**
+
+	
+
+	==The Difference Between Arrays and Objects
+
+		-In JavaScript, arrays use numbered indexes.  
+		-In JavaScript, objects use named indexes.
+	You should use objects when you want the element names to be strings (text).
+	You should use arrays when you want the element names to be numbers.
+
+	==How to Recognize an Array
+
+		-Array.isArray(fruits);
+
+		-const fruits = ["Banana", "Orange", "Apple"];
+		(fruits instanceof Array);
+
+	==The join() method also joins all array elements into a string.
+
+	==Shift() method-
+			-The shift() method removes the first array element and "shifts" all other elements to a lower index.
+			-The shift() method returns the value that was "shifted out":
+	==Unshift() method-
+			-The unshift() method adds a new element to an array (at the beginning), and "unshifts" older elements:
+			-The unshift() method returns the new array length:
+
+	==Concat() method-
+			-The concat() method creates a new array by merging (concatenating) existing arrays:
+			-The concat() method does not change the existing arrays. It always returns a new array.
+			-The concat() method can take any number of array arguments.
+	==copyWithIn()-
+			-The copyWithin() method copies array elements to another position in an array:
+	==flat()-
+			-The flat() method creates a new array with sub-array elements concatenated to a specified depth
+	==splice(strt indx, deletecount, newElement)
+			-The splice() method can be used to add new items to an array
+	==slice(strt idx,end idx)
+			-
+
+	==find()-
+			-The find() method returns the value of the first array element that passes a test function.
+
+	==findIndex()   
+			-The findIndex() method returns the index of the first array element that passes a test function.
+
+	==findLast()
+			-findLast() method that will start from the end of an array and return the value of the first element 
+			that satisfies a condition.
+
+	==sort()	-The sort() method sorts an array alphabetically
+			=====By combining sort() and reverse(), you can sort an array in descending order:
+
+	====toSorted()	
+			-toSorted() method as a safe way to sort an array without altering the original array.
+			
+			**The difference between toSorted() and sort() is that the first method creates a new array, 
+			  keeping the original array unchanged, while the last method alters the original array.
+
+	==forEach()
+			-The forEach() method calls a function (a callback function) once for each array element.
+
+	==map()       
+			-The map() method creates a new array by performing a function on each array element.
+			-The map() method does not execute the function for array elements without values.
+			-The map() method does not change the original array.
+
+	==filter()	
+			-The filter() method creates a new array with array elements that pass a test.
+	
+	==reduce()
+			-The reduce() method runs a function on each array element to produce (reduce it to) a single value.

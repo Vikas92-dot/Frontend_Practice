@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Javascript Events</h3>
+    <p>1. Button click event</p>
+    <button onclick="sayHello()">Click me</button>
+    <br>
+    <p>2. Apply add event listener</p>
+    <button id="myBtn">Check</button>
+    <br>
+    <p>3. Input key press event</p>
+    <input type="text" id="myInput" placeholder="Type something..">
+    <script>
+        //button click event
+        function sayHello(){
+            return alert("Good Morning");
+        }
+
+        //Apply add event listener
+
+        const btn = document.getElementById("myBtn");
+
+        btn.addEventListener("click",
+            function(){
+                alert('Button was clicked');
+            }
+        )
+
+        //Input key press event
+
+        let input = document.getElementById('myInput');
+
+        input.addEventListener("keydown",
+            function(event){
+                console.log("You pressed:", event.key);
+            }
+        )
+    </script>
+</body>
+</html>
