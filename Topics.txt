@@ -639,3 +639,15 @@ The following table lists the @keyframes rule and all the CSS animation properti
 	
 	==reduce()
 			-The reduce() method runs a function on each array element to produce (reduce it to) a single value.
+
+**Destructuring**
+	
+	==Object destructuring---The destructuring assignment syntax unpack object properties into variables:
+
+**Scope**
+
+	-JavaScript variables have 3 types of scope:
+
+		-Block scope
+		-Function scope
+		-Global scope
