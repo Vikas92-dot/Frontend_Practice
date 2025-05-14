@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Event Listener Examples</h3>
+    <p>Add many events on the same button</p>
+    <button id="myBtn">Click me</button>
+    <strong id="demo"></strong>
+    <script>
+        let button = document.getElementById('myBtn');
+        button.addEventListener("mouseover", myFunction);
+        button.addEventListener("mouseout",mySecondFunction);
+        button.addEventListener("click",myThirdFunction);
+
+        function myFunction(){
+            document.getElementById('demo').innerHTML += "Mouse over! <br>";
+        }
+        function mySecondFunction(){
+            document.getElementById('demo').innerHTML += "Mouse out! <br>";
+        }function myThirdFunction(){
+            document.getElementById('demo').innerHTML += "Clicked! <br>";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <h2>JavaScript DOM</h2>
+    <p class="intro">Hello World</p>
+    <p class="intro">second paragraph.</p>
+
+    <p id="demo"></p>
+    <p id="demo2"></p>
+    <img id="image" height="100px" width="140px" src="" alt="nature image">
+    <script>
+        const x = document.querySelectorAll('p.intro');
+        document.getElementById('demo').innerHTML = 'The first paragraph index 0 with class="intro":' + x[0].innerHTML;
+
+        document.getElementById('image').src = 'pexels.jpg'
+
+        //Dynamic HTML content
+        document.getElementById('demo2').innerHTML = "Date: "+ Date();
+
+        //document.write
+        document.write(Date())
+    </script>
+</body>
+</html>

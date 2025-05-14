@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>JavaScript HTML Node</h2>
+    <div id="div1">
+        <p id="p1">This is first para.</p>
+    </div>
+
+    <script>
+        const para = document.createElement('p');
+        const node = document.createTextNode("This is new paragraph.")
+        para.appendChild(node);
+
+        const mainDiv = document.getElementById('div1');
+        mainDiv.appendChild(para);
+    </script>
+</body>
+</html>

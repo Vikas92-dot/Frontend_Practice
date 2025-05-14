@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>The OnInput event</h3>
+    Enter your name: <input id="fname" type="text" onmouseout="changeColory(this)" onmouseover="changeColor(this)" oninput="upperCase()">
+
+    <script>
+        function changeColory(id){
+            id.style.backgroundColor = 'white';
+        }
+        function changeColor(id){
+            id.style.backgroundColor = "red";
+        }
+        function upperCase(){
+            const x = document.getElementById('fname');
+
+            x.value = x.value.toUpperCase();
+        }
+    </script>
+</body>
+</html>

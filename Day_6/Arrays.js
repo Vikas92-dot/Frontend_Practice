@@ -124,7 +124,7 @@ console.log(evenNum);
 
 //reduce() used for accumulate in a single value
 
-const totalNum = num.reduce((n,sum)=>{
+const totalNum = num.reduce((sum,n)=>{
     return n+sum;
 })
 console.log(totalNum);

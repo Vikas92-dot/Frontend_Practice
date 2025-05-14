@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Event Bubbling and Capturing</h2>
+    <div id="parent">
+        <button id="child">Click</button>
+    </div>
+
+    <script>
+        document.getElementById('parent').addEventListener('click',function(){
+            alert("Div clicked");
+        },true);
+
+        document.getElementById('child').addEventListener('click',function(){
+            alert("Button clicked.")
+        },true);
+    </script>
+</body>
+</html>
