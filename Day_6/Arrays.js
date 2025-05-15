@@ -129,11 +129,10 @@ const totalNum = num.reduce((sum,n)=>{
 })
 console.log(totalNum);
 
-
-
-
-
-
-
-
-
+const person = {
+    name:"John",
+    printName: function(){
+        console.log(this.name);
+    }
+}
+person.printName();

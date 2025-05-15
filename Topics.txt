@@ -566,6 +566,7 @@ The following table lists the @keyframes rule and all the CSS animation properti
 	==Hexadecimal==
 		--JavaScript interprets numeric constants as hexadecimal if they are preceded by 0x.
 	==toFixed()- toFixed() returns a string, with the number written with a specified number of decimals.
+			**it return string so to convert it into number use parseInt(str)
 	==valueOf()- The valueOf() method is used internally in JavaScript to convert Number objects to primitive values.
 
 **Arrays**
@@ -604,9 +605,9 @@ The following table lists the @keyframes rule and all the CSS animation properti
 	==flat()-
 			-The flat() method creates a new array with sub-array elements concatenated to a specified depth
 	==splice(strt indx, deletecount, newElement)
-			-The splice() method can be used to add new items to an array
+			-The splice() method can be used to add,remove and replace new items to an array
 	==slice(strt idx,end idx)
-			-
+			-last index is exclusive.
 
 	==find()-
 			-The find() method returns the value of the first array element that passes a test function.
@@ -767,7 +768,7 @@ The following table lists the @keyframes rule and all the CSS animation properti
 **The Optional Chaining Operator (?.)
 	-The ?. operator returns undefined if an object is undefined or null (instead of throwing an error)
 
-**JSON**
+**JSON**	
 		-JSON is a format for storing and transporting data.
 		-JSON is often used when data is sent from a server to a web page.
 			=The JSON syntax is derived from JavaScript object notation syntax, but the JSON format is text only. 
@@ -778,3 +779,66 @@ The following table lists the @keyframes rule and all the CSS animation properti
 		-Strict mode is declared by adding "use strict"; to the beginning of a script or a function.
 
 		-Declared at the beginning of a script, it has global scope (all code in the script will execute in strict mode):
+
+-------------------------------------------------Day-8----------------------------------------------------------
+
+			***React JS**
+
+**Component**
+	-React apps are made out of components. A component is a piece of the UI (user interface) that has its own logic and appearance. 
+	A component can be as small as a button, or as large as an entire page.
+
+**Class Component**
+
+	===LifeCycle methods-
+	 If you define the componentDidMount method, React will call it when your component is added (mounted) to the screen. 
+	 React will call componentDidUpdate after your component re-renders due to changed props or state. 
+	 React will call componentWillUnmount after your component has been removed (unmounted) from the screen.
+
+	==practice with ChatRoom example covered state,props and lifecycle methods.
+
+**Catching rendering errors with an error boundary**
+
+	-By default, if your application throws an error during rendering, React will remove its UI from the screen. 
+	To prevent this, you can wrap a part of your UI into an error boundary. 
+	An error boundary is a special component that lets you display some fallback UI instead of the part that crashed—for example, 
+	an error message.
+
+	-To implement an error boundary component, you need to provide static getDerivedStateFromError which lets you update 
+	 state in response to an error and display an error message to the user. 
+	 You can also optionally implement componentDidCatch to add some extra logic, for example, 
+	 to log the error to an analytics service.
+
+**State**
+	-State can hold any kind of JavaScript value, including objects.
+	 But you shouldn’t change objects that you hold in the React state directly. 
+	 Instead, when you want to update an object, you need to create a new one (or make a copy of an existing one), 
+	 and then set the state to use that copy.
+
+	==Mutation==
+		-So far you’ve been working with numbers, strings, and booleans. 
+		 These kinds of JavaScript values are “immutable”, meaning unchangeable or “read-only”. 
+		 You can trigger a re-render to replace a value:
+
+	==Updating a Nested Object
+		**Instead of useState we can use useImmer
+	-The draft provided by Immer is a special type of object, called a Proxy, that “records” what you do with it. 
+	 This is why you can mutate it freely as much as you like! Under the hood, Immer figures out which parts of the draft 
+	 have been changed, and produces a completely new object that contains your edits.
+
+**Conditional Rendering**
+
+	-Your components will often need to display different things depending on different conditions. 
+	 In React, you can conditionally render JSX using JavaScript syntax like if statements, &&, and ? : operators.
+
+
+
+**New Point**
+If a function:
+
+Starts with a capital letter
+
+Returns JSX
+
+Then React treats it like a custom tag/component and lets you use it like: <MyComponent someProp="value" />
+	==As we used in conditional rendering example Item function as: <Item isPacked={true}  name="Space Suit"/>
