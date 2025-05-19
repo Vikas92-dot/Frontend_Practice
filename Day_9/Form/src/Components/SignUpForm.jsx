@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserTable from "./UserTable";
 import {toast, ToastContainer} from 'react-toastify';
+import backgroundImage from '../assets/back2.jpg'
 
 
 function SignUpForm(){
@@ -13,13 +14,43 @@ function SignUpForm(){
         status:"",
         description:""
         })
+
     const [storedData, setStoredData] = useState([]);
+    const [editingId, setEditingId] = useState(null);
 
     const validateEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
+
+    const handleDelete =(index)=>{
+        if(window.confirm("Do you want to delete it?")){
+            storedData.splice(index,1);
+            
+            const updatedData = [...storedData];
+            setStoredData(updatedData);
+            console.log(updatedData);
+            setEditingId(null);
+
+            const convertedData = JSON.stringify(updatedData);
+            localStorage.setItem("UserData",convertedData);
+            toast.success("Delete successfully.");
+        }
+    }
     
- 
+    const handleEdit =(index)=>{
+        if(editingId === null){
+            console.log("Set id");
+            
+            setEditingId(index);
+            console.log(editingId);    
+
+            setData(storedData[index])
+        }
+        else setEditingId(null);
+        console.log("Click cancel");
+        console.log(editingId);    
+    }
+
     const handleChange=(e)=>{
         
         if(e.target.name === "hobbies"){
@@ -69,12 +100,27 @@ function SignUpForm(){
         // localStorage.setItem("UserData",convertedData);
         //sessionStorage.setItem("sessionData",convertedData)
         
-        const updatedData = [...storedData,data];
-        const convertedData = JSON.stringify(updatedData);
-        localStorage.setItem("UserData",convertedData);
-        setStoredData(updatedData);
-        //alert("Data Saved Successfully..");
-        toast.success("Data Saved Successfully");
+        if(editingId !== null){
+            const updatedData = [...storedData];
+            updatedData[editingId] = data;
+            
+            setStoredData(updatedData);
+            console.log(updatedData);
+            setEditingId(null);
+
+            const convertedData = JSON.stringify(updatedData);
+            localStorage.setItem("UserData",convertedData);
+            toast.success("Edit successfully.");
+        }
+        else{
+
+            const updatedData = [...storedData,data];
+            const convertedData = JSON.stringify(updatedData);
+            localStorage.setItem("UserData",convertedData);
+            setStoredData(updatedData);
+            //alert("Data Saved Successfully..");
+            toast.success("Data Saved Successfully");
+        }
             
     }
     useEffect(()=>{
@@ -87,7 +133,7 @@ function SignUpForm(){
         const stringData = localStorage.getItem("UserData");
         const userData = JSON.parse(stringData) || [];
         setStoredData(userData);
-        setData(userData[userData.length-1]);
+        //setData(userData[userData.length-1]);
 
          //Session Storage
         //  const stringData = sessionStorage.getItem("sessionData");
@@ -97,7 +143,7 @@ function SignUpForm(){
         
     },[])
     return<>
-        <div className="container" style={{backgroundImage:"url() "}}>
+        <div className="container" style={{backgroundImage:`url(${backgroundImage})`}}>
             <ToastContainer />
 
             <div className="row justify-content-center align-items-center display-flex">
@@ -158,7 +204,7 @@ function SignUpForm(){
                                     <textarea onChange={handleChange}  value={data.description}  className="form-control mb-2" name="description" id=""></textarea>
                             </div>
                             
-                            <button className="btn btn-success mt-2">Save</button>
+                            <button className="btn btn-success mt-2">{editingId !== null ? "Save Edit" : "Save"}</button>
 
                         </div>
                     </form>
@@ -166,7 +212,7 @@ function SignUpForm(){
             
             </div>
         </div>
-        <UserTable storedData={storedData}/>
+        <UserTable storedData={storedData} handleEdit={handleEdit} editingId={editingId} handleDelete={handleDelete}/>
     </>
 }
 export default SignUpForm;
