@@ -113,7 +113,6 @@ function SignUpForm(){
             toast.success("Edit successfully.");
         }
         else{
-
             const updatedData = [...storedData,data];
             const convertedData = JSON.stringify(updatedData);
             localStorage.setItem("UserData",convertedData);

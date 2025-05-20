@@ -31,7 +31,7 @@ function UserTable({storedData,handleEdit,editingId,handleDelete}){
                                     <td>{data.status}</td>
                                     <td>{data.description}</td>
                                     <td>
-                                        <button onClick={()=>handleEdit(index)} className={ editingId !== null ? "btn btn-secondary mb-2" : "btn btn-primary mb-2"}>{editingId !== null ? "Cancel" : "Edit"}</button>
+                                        <button onClick={()=>handleEdit(index)} className={ editingId === index ? "btn btn-secondary mb-2" : "btn btn-primary mb-2"}>{editingId === index ? "Cancel" : "Edit"}</button>
                                         <button onClick={()=> handleDelete(index)} className="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
