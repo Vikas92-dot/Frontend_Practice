@@ -832,7 +832,7 @@ The following table lists the @keyframes rule and all the CSS animation properti
 	 In React, you can conditionally render JSX using JavaScript syntax like if statements, &&, and ? : operators.
 
 
-
+ 
 **New Point**
 If a function:
 
@@ -842,3 +842,35 @@ Returns JSX
 
 Then React treats it like a custom tag/component and lets you use it like: <MyComponent someProp="value" />
 	==As we used in conditional rendering example Item function as: <Item isPacked={true}  name="Space Suit"/>
+
+**Props**
+
+	-React components use props to communicate with each other. Every parent component can pass some information 
+	 to its child components by giving them props. Props might remind you of HTML attributes, but you can pass any JavaScript value 
+	 through them, including objects, arrays, and functions.
+
+------------------------------------------------------------Day-10---------------------------------------------------------------
+
+**Controlled Component**
+	
+	-a controlled component is a form element whose value is controlled by React state. 
+	 Instead of the DOM managing the component's value, React's state serves as the single source of truth. 
+	 When the user interacts with the input, an event handler updates the state, and React re-renders the component 
+	 to reflect the change. This approach enables greater control over form data, facilitating tasks such as validation and formatting.
+
+**Uncontrolled Component**
+
+	-Uncontrolled components, on the other hand, store their data directly in the DOM. To access the data, you would typically 
+	 use a ref to interact with the DOM element directly. While this approach can be simpler for basic forms, it offers less control 
+	 and makes it harder to implement complex logic or validation.
+
+---------------------------------------------------------Day-11---------------------------------------------------------------------
+
+  -Complete two task 
+	1- Add Edit and Delete button in Table also add functionality.
+	2- When user click on edit data field converted into input and allow user to edit from there.
+
+---------------------------------------------------------Day-12-------------------------------------------------------------------
+
+ **Learn and apply Formik**
+	

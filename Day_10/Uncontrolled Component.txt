@@ -1,0 +1,16 @@
+    import React, { useRef } from 'react';
+
+    function UncontrolledInput() {
+      const inputRef = useRef(null);
+
+      const handleSubmit = () => {
+        alert('Input Value: ' + inputRef.current.value);
+      };
+
+      return (
+        <>
+          <input type="text" defaultValue="initial value" ref={inputRef} />
+          <button onClick={handleSubmit}>Submit</button>
+        </>
+      );
+    }
