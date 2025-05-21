@@ -175,7 +175,7 @@ function UserTable() {
             left:"83%"
           }} className="btn btn-success" onClick={()=>navigate('/add-user')}>Add User</button>
         <table
-          className="table table-bordered table-hover text-center"
+          className="table  table-bordered table-responsive table-hover text-center"
           style={{
             position: "absolute",
             top: "7rem",
