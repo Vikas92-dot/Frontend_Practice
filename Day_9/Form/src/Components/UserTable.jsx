@@ -4,8 +4,8 @@ function UserTable({storedData,handleEdit,editingId,handleDelete}){
 
     return<>
         <div className="container">
-            <h2 className="bg-warning p-2" style={{position:"absolute",borderRadius:"5px",top:"49rem",left:"45%",boxShadow:"5px 5px 5px grey"}}>Users List</h2>
-                <table className="table table-bordered table-hover text-center" style={{position:"absolute",top:"53rem",width:"80%",left:"10%",boxShadow:"10px 10px 10px 10px grey"}}>
+            <h2 className="bg-warning p-2" style={{position:"absolute",borderRadius:"5px",top:"59rem",left:"45%",boxShadow:"5px 5px 5px grey"}}>Users List</h2>
+                <table className="table table-bordered table-hover text-center" style={{position:"absolute",top:"63rem",width:"80%",left:"10%",boxShadow:"10px 10px 10px 10px grey"}}>
                     <thead className="table-dark">
                         <tr>
                         <th>Sr No.</th>
