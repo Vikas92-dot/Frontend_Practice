@@ -1,19 +1,24 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import apis from "../apis";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 function VerifyEmail(){
     const {email,emailVerificationTOken,id} = useParams();
+    const navigate = useNavigate();
     
     
-    const handleSubmit = async (e)=>{
+    const handleSubmit = async (e)=>{ 
         e.preventDefault();
         try {
             console.log(email,emailVerificationTOken,id);
             const result = await axios.get(`${apis.VERIFICATION}?token=${emailVerificationTOken}&userId=${id}`)
             console.log(result);
             toast.success("Email Verified Successfully");
+
+            setTimeout(()=>{
+                navigate('/');
+            },2000);
             
         } catch (error) {
             console.log(error);

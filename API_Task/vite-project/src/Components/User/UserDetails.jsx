@@ -1,0 +1,81 @@
+import axios from 'axios';
+import image from '../../assets/user-profile.png';
+import apis from '../apis';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+
+function UserDetails(){
+
+    const{ id,token} = useParams();
+    const[userData, setUserData] = useState({name:'',email:''});
+    const navigate = useNavigate();
+    const [loading,setLoading] = useState(true);
+
+    useEffect(()=>{
+        fetchDetails();
+    },[]);
+
+    const fetchDetails = async()=>{
+        try {
+            const result = await axios.get(`${apis.GET_DETAILS}/${id}`,{
+                headers: {Authorization:`Bearer ${token}`}
+            });
+            console.log("Result",result.data.user);
+            setUserData(result.data.user);
+            setLoading(false);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const handleDelete = async () =>{
+        if(window.confirm("Do you want to delete it?")){
+            try {
+                const result = await axios.delete(`${apis.DELETE_USER}/${id}`,{
+                headers:{Authorization: `Bearer ${token}`}
+            })
+            console.log(result);
+            toast.success("User deleted successfully.");
+            setTimeout(()=>{
+                navigate(-1);
+            },2000);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    }
+    return<>
+        <button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</button>
+        <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem"}}>
+            <ToastContainer/>
+            <h2 className='text-center mt-2' >User Details</h2>
+            <img className="card-img-top" src={image} alt="User Image" style={{width:"100%",height:"300px"}} />
+            <div className='p-2'>
+                <span className='fw-bold' style={{fontSize:"30px"}}>Name:</span>
+                {loading ? <div className="text-center">
+                            <div class="spinner-border" role="status">
+                             <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div> 
+                    : <span className='ms-2' style={{fontSize:"30px"}}>{userData.name}</span> }
+            </div>
+            <div className='p-2'>
+                <span className='fw-bold' style={{fontSize:"30px"}}>Email:</span>
+                {loading ? <div className="text-center">
+                            <div class="spinner-border" role="status">
+                             <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
+                     : <span className='ms-2' style={{fontSize:"30px"}}>{userData.email}</span>}
+                
+            </div> 
+            <div className='text-center p-2'>
+
+            <button onClick={()=> navigate(`/edit-user/${id}/${token}`)} className='btn btn-success ms-2'>Edit</button>
+            <button onClick={()=> handleDelete()} className='btn btn-danger ms-4'>Delete</button>
+            </div>
+        </div>
+    </>
+}
+export default UserDetails;

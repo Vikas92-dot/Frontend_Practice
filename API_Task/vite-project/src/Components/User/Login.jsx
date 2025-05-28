@@ -4,7 +4,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import apis from "../apis";
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Invalid Email").required("Email is required."),
@@ -23,8 +23,9 @@ function Login(){
             const {email,password} = values;
         try {
             let result = await axios.post(apis.LOGIN,{email,password});
-            console.log(result.data.data.token);
+            console.log(result.data.data);
              const token = result.data.data.token;
+
             toast.success("Login Successfully");
             setTimeout(()=>{
                 navigate(`/dashboard/${token}`)
@@ -34,13 +35,14 @@ function Login(){
             console.log(error);
             toast.error("Something went wrong");
         }
-        }
+    }
     })
     
     return<>
         <div className="container  justify-content-center align-item-center d-flex">
+            <ToastContainer/>
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px"}}>
-                <h3 className="text-center p-2 text-white bg-secondary" style={{width:"100%",height:"50px"}}>Login</h3>
+                <h3 className="text-center p-2 text-white bg-dark" style={{width:"100%",height:"50px"}}>Login</h3>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
                         <label className="form-label">Email</label>
