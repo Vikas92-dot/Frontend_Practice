@@ -1,14 +1,12 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import apis from "../apis";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../AxiosInstance";
 
 function Dashboard(){
     
     const [users, setUsers] = useState([]);
     const[page,setPage] = useState(1);
     const[totalPages,setTotalPages] = useState(0);
-    const {token} = useParams();
     const navigate = useNavigate();
     const [loading,setLoading] = useState(true);
     
@@ -23,12 +21,12 @@ function Dashboard(){
 
     const getUsers = async()=>{
         try {
-        const users = await axios.get(`${apis.ALL_USERS}?pageNumber=${page}&pageSize=10`,{
-            headers: { Authorization: `Bearer ${token}` }});
+        const users = await axiosInstance.get(`/user?pageNumber=${page}&pageSize=10`);
             console.log("All Users",users.data);
             setUsers(users.data.data);
             setLoading(false);
-            setTotalPages(users.data.totalRecords);
+            let totalPages = Math.ceil(users.data.totalRecords/10)
+            setTotalPages(totalPages);
             console.log(users.data.totalRecords);
         } catch (error) {
             console.log(error);
@@ -44,12 +42,19 @@ function Dashboard(){
             setPage((prev)=> prev-1);
         }
     } 
-    
+    const handleLogOut =()=>{
+        if(window.confirm("Do you want to LogOut?")){
+            localStorage.removeItem('token');
+            navigate('/');
+        }
+        
+    }
 
     return<>
          <div className="row">
-             <h2 className="text-center p-2 bg-info fw-bold" style={{borderRadius:"5px",}}>Users List</h2>
-             <button onClick={()=> navigate('/register')} className="btn btn-warning fw-bold" style={{position:"absolute",left:"80%",top:"11%",width:"8%"}}>Add User</button>
+             <h2 className="text-center p-2 bg-info fw-bold" style={{borderRadius:"5px",border:"1px solid black"}}>Users List</h2>
+             <button onClick={()=> navigate('/register')} className="btn btn-warning fw-bold" style={{position:"relative",left:"80%",top:"11%",width:"8%"}}>Add User</button>
+             <button onClick={()=> handleLogOut()} className="btn btn-danger fw-bold" style={{width:"7%",position:"absolute",top:"2%",left:"92%"}}>Log Out</button>
 
              {loading 
                 ?   <div className="text-center">
@@ -73,7 +78,7 @@ function Dashboard(){
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={()=> navigate(`/user-details/${user.id}/${token}`)} className="btn btn-primary">See Details</button>
+                                <button onClick={()=> navigate(`/user-details/${user.id}`)} className="btn btn-primary">See Details</button>
                             </td>
                         </tr>
                     ))}
@@ -82,11 +87,12 @@ function Dashboard(){
              
             
          </div>
-          <div style={{position:"absolute",top:"46rem",left:"40%"}}>
-                <button onClick={()=> setPrevious()} disabled={page === 1} className="btn btn-primary ml-2">Previous</button>
-                <span className="fw-bold">Page {page} of {Math.ceil(totalPages/10)}</span>
+          <div  style={{position:"absolute",top:"46rem",left:"40%"}}>
+                <button onClick={()=> setPrevious()} disabled={page === 1} className="btn btn-primary">Previous</button>
+                <span className="fw-bold">Page {page} of {totalPages}</span>
                 <button onClick={()=> setNext()} disabled={page === totalPages} className="btn btn-success ms-2">Next</button>
              </div>
+        
         </>
 }
 export default Dashboard;

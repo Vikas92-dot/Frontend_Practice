@@ -1,20 +1,19 @@
-import axios from "axios";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import * as Yup from 'yup';
-import apis from "../apis";
+import axiosInstance from "../../AxiosInstance";
 
 const validationSchema = Yup.object({
     name: Yup.string().required("Name is required."),
     email: Yup.string().email("Invalid Email").required("Email is required."),
-    password: Yup.number().required("Password is required")
+    password: Yup.string().min(6).required("Password is required")
 })
 
 function EditUser(){
     const[data,setData] = useState({name:'',email:'',password:''});
-    const{id,token} = useParams();
+    const{id} = useParams();
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -23,11 +22,9 @@ function EditUser(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axios.get(`${apis.GET_DETAILS}/${id}`,{
-                headers: {Authorization:`Bearer ${token}`}
-            });
+            const result = await axiosInstance.get(`/user/${id}`);
             console.log("Result",result.data.user);
-            setData(result.data.user);
+            setData(result?.data?.user);
             
         } catch (error) {
             console.log(error);
@@ -41,9 +38,7 @@ function EditUser(){
         onSubmit: async(values)=>{
             const {name,email,password} = values;
             try {
-                const status = await axios.put(`${apis.EDIT_USER}/${id}`,{name,email,password},{
-                    headers:{Authorization :`Bearer ${token}`}
-                })
+                const status = await axiosInstance.put(`/user/${id}`,{name,email,password})
                 console.log(status);
                 toast.success("Save Changes Successfully");
 
@@ -67,7 +62,7 @@ function EditUser(){
                         <label className="form-label">Name</label>
                         <input 
                         name="name" 
-                        value={formik.values.name} 
+                        value={formik.values?.name} 
                         onChange={formik.handleChange} 
                         onBlur={formik.handleBlur}
                         className="form-control" 
@@ -80,7 +75,7 @@ function EditUser(){
                         <label className="form-label">Email</label>
                         <input 
                         name="email" 
-                        value={formik.values.email} 
+                        value={formik.values?.email} 
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur} 
                         className="form-control mb-2" 

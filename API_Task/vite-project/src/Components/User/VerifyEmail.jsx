@@ -1,10 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import apis from "../apis";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import axiosInstance from "../../AxiosInstance";
 
 function VerifyEmail(){
-    const {email,emailVerificationTOken,id} = useParams();
+    const {email} = useParams();
+    const emailVerificationTOken = localStorage.getItem("emailToken");
+    const id = localStorage.getItem("userId");
     const navigate = useNavigate();
     
     
@@ -12,7 +13,7 @@ function VerifyEmail(){
         e.preventDefault();
         try {
             console.log(email,emailVerificationTOken,id);
-            const result = await axios.get(`${apis.VERIFICATION}?token=${emailVerificationTOken}&userId=${id}`)
+            const result = await axiosInstance.get(`/user/email/verification?token=${emailVerificationTOken}&userId=${id}`)
             console.log(result);
             toast.success("Email Verified Successfully");
 

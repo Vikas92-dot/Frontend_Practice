@@ -1,15 +1,14 @@
 import { useState } from "react";
-import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 import {toast,ToastContainer} from 'react-toastify';
-import apis from "../apis";
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
+import axiosInstance from "../../AxiosInstance";
 
 const validationSchema = Yup.object({
     name: Yup.string().required("Name is required."),
     email: Yup.string().email("Invalid Email").required("Email is required."),
-    password: Yup.number().required("Password is required.")
+    password: Yup.string().min(6).required("Password is required.")
 })
 
 function Register(){
@@ -24,18 +23,20 @@ function Register(){
         onSubmit: async (values) =>{
             const {name,email,password} = values;
         try {
-            let result = await axios.post(apis.REGISTER,{name,email,password});
+            
+            let result = await axiosInstance.post('/user',{name,email,password});
             console.log(result.data.data);
             toast.success("Registration Successfully.");
 
             const{emailVerificationTOken,id} = result.data.data;
-
+            const emailToken = localStorage.setItem("emailToken",emailVerificationTOken);
+            const userId = localStorage.setItem("userId",id);
             setTimeout(()=>{
-                navigate(`/email-verification/${email}/${emailVerificationTOken}/${id}`)
+                navigate(`/email-verification/${email}`)
             
             },2000);
         } catch (error) {
-            console.log(error);
+            console.error('An error occurred:', error.message);
             toast.error(error?.response?.data.message);
         }
         }

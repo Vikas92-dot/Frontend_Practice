@@ -5,8 +5,13 @@ import VerifyEmail from './Components/User/VerifyEmail';
 import Dashboard from './Components/User/Dashboard';
 import UserDetails from './Components/User/UserDetails';
 import EditUser from './Components/User/EditUser';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
+    {
+        path:"*",
+        element: <Login/>
+    },
     {
         path:'/',
         element: <Login/>
@@ -16,20 +21,20 @@ const router = createBrowserRouter([
         element: <Register/>
     },
     {
-        path:'/email-verification/:email/:token/:id',
+        path:'/email-verification/:email',
         element:<VerifyEmail/>
     },
     {
-        path:'/dashboard/:token',
-        element: <Dashboard/>
+        path:'/dashboard',
+        element: <PrivateRoute><Dashboard/></PrivateRoute>
     },
     {
-        path:'/user-details/:id/:token',
-        element: <UserDetails/>
+        path:'/user-details/:id',
+        element: <PrivateRoute><UserDetails/></PrivateRoute>
     },
     {
-        path:'/edit-user/:id/:token',
-        element: <EditUser/>
+        path:'/edit-user/:id',
+        element: <PrivateRoute><EditUser/></PrivateRoute>
     }
 ])
 export default router;

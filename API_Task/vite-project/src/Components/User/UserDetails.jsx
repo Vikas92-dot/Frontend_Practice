@@ -1,13 +1,12 @@
-import axios from 'axios';
 import image from '../../assets/user-profile.png';
-import apis from '../apis';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import axiosInstance from '../../AxiosInstance';
 
 function UserDetails(){
 
-    const{ id,token} = useParams();
+    const{id} = useParams();
     const[userData, setUserData] = useState({name:'',email:''});
     const navigate = useNavigate();
     const [loading,setLoading] = useState(true);
@@ -18,11 +17,9 @@ function UserDetails(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axios.get(`${apis.GET_DETAILS}/${id}`,{
-                headers: {Authorization:`Bearer ${token}`}
-            });
-            console.log("Result",result.data.user);
-            setUserData(result.data.user);
+            const result = await axiosInstance.get(`/user/${id}`);
+            console.log("Result",result?.data?.user);
+            setUserData(result?.data?.user);
             setLoading(false);
             
         } catch (error) {
@@ -32,9 +29,7 @@ function UserDetails(){
     const handleDelete = async () =>{
         if(window.confirm("Do you want to delete it?")){
             try {
-                const result = await axios.delete(`${apis.DELETE_USER}/${id}`,{
-                headers:{Authorization: `Bearer ${token}`}
-            })
+            const result = await axiosInstance.delete(`/user/${id}`)
             console.log(result);
             toast.success("User deleted successfully.");
             setTimeout(()=>{
@@ -58,7 +53,7 @@ function UserDetails(){
                              <span class="visually-hidden">Loading...</span>
                             </div>
                           </div> 
-                    : <span className='ms-2' style={{fontSize:"30px"}}>{userData.name}</span> }
+                    : <span className='ms-2' style={{fontSize:"30px"}}>{userData?.name || "Unknown"}</span> }
             </div>
             <div className='p-2'>
                 <span className='fw-bold' style={{fontSize:"30px"}}>Email:</span>
@@ -67,12 +62,12 @@ function UserDetails(){
                              <span class="visually-hidden">Loading...</span>
                             </div>
                           </div>
-                     : <span className='ms-2' style={{fontSize:"30px"}}>{userData.email}</span>}
+                     : <span className='ms-2' style={{fontSize:"30px"}}>{userData?.email || "Unknown"}</span>}
                 
             </div> 
             <div className='text-center p-2'>
 
-            <button onClick={()=> navigate(`/edit-user/${id}/${token}`)} className='btn btn-success ms-2'>Edit</button>
+            <button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success ms-2'>Edit</button>
             <button onClick={()=> handleDelete()} className='btn btn-danger ms-4'>Delete</button>
             </div>
         </div>

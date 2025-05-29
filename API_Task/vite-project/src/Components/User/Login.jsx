@@ -1,10 +1,9 @@
 import { useState } from "react";
-import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
-import apis from "../apis";
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import { toast, ToastContainer } from "react-toastify";
+import axiosInstance from "../../AxiosInstance";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Invalid Email").required("Email is required."),
@@ -22,18 +21,21 @@ function Login(){
         onSubmit: async (values) =>{
             const {email,password} = values;
         try {
-            let result = await axios.post(apis.LOGIN,{email,password});
+            let result = await axiosInstance.post('/user/login',{email,password});
             console.log(result.data.data);
              const token = result.data.data.token;
 
+             const localToken = localStorage.setItem("token",token);
+            console.log(localToken);
+            
             toast.success("Login Successfully");
             setTimeout(()=>{
-                navigate(`/dashboard/${token}`)
+                navigate(`/dashboard`)
             },2000);
             
         } catch (error) {
             console.log(error);
-            toast.error("Something went wrong");
+            toast.error(error?.response?.data.message);
         }
     }
     })
