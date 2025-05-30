@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import * as Yup from 'yup';
-import axiosInstance from "../../AxiosInstance";
+import axiosInstance from "../../Service/AxiosInstance";
+import apiPath from "../../Service/apiPath";
+
 
 const validationSchema = Yup.object({
     name: Yup.string().required("Name is required."),
@@ -22,7 +24,7 @@ function EditUser(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axiosInstance.get(`/user/${id}`);
+            const result = await axiosInstance.get(`${apiPath.user.EDIT_USER}/${id}`);
             console.log("Result",result.data.user);
             setData(result?.data?.user);
             
@@ -98,7 +100,7 @@ function EditUser(){
                           <div className="text-danger">{formik.errors.password}</div>
                         )}
 
-                        <button type="submit" className="btn btn-success mt-4">Save</button>
+                        <button type="submit" className="btn btn-success w-100 mt-2 mb-2 ">Save</button>
                     </div>
                 </form>
             </div>

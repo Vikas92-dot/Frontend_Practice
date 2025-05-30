@@ -3,7 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import { toast, ToastContainer } from "react-toastify";
-import axiosInstance from "../../AxiosInstance";
+import axiosInstance from "../../Service/AxiosInstance";
+import apiPath from "../../Service/apiPath";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Invalid Email").required("Email is required."),
@@ -21,7 +22,7 @@ function Login(){
         onSubmit: async (values) =>{
             const {email,password} = values;
         try {
-            let result = await axiosInstance.post('/user/login',{email,password});
+            let result = await axiosInstance.post(apiPath.auth.LOGIN,{email,password});
             console.log(result.data.data);
              const token = result.data.data.token;
 
@@ -41,9 +42,9 @@ function Login(){
     })
     
     return<>
-        <div className="container  justify-content-center align-item-center d-flex">
+        <div className="container justify-content-center align-item-center d-flex" style={{}}>
             <ToastContainer/>
-            <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px"}}>
+            <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1, #FFD54F)"}}>
                 <h3 className="text-center p-2 text-white bg-dark" style={{width:"100%",height:"50px"}}>Login</h3>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
@@ -73,12 +74,15 @@ function Login(){
                           <div className="text-danger">{formik.errors.password}</div>
                         )} 
 
-                        <button type="submit" className="btn btn-success mt-4">Login</button>
+                        <button type="submit" className="btn btn-success mt-4 w-100">Login</button>
                     </div>
                 </form>
+                        <Link to="/forgot-password" className="text-danger text-center fw-bold">
+                            Forgot-Password
+                        </Link>
                     <p className="mb-2 mt-2 text-dark text-center">
                         Don't have an account?{" "}
-                        <Link to="/register" className="text-warning fw-bold">
+                        <Link to="/register" className="text-primary fw-bold">
                             Register
                         </Link>
                     </p>

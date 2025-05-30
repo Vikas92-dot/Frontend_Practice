@@ -2,7 +2,9 @@ import image from '../../assets/user-profile.png';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import axiosInstance from '../../AxiosInstance';
+import axiosInstance from '../../Service/AxiosInstance';
+import apiPath from '../../Service/apiPath';
+
 
 function UserDetails(){
 
@@ -17,7 +19,7 @@ function UserDetails(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axiosInstance.get(`/user/${id}`);
+            const result = await axiosInstance.get(`${apiPath.user.USER_DETAILS}/${id}`);
             console.log("Result",result?.data?.user);
             setUserData(result?.data?.user);
             setLoading(false);
@@ -67,8 +69,8 @@ function UserDetails(){
             </div> 
             <div className='text-center p-2'>
 
-            <button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success ms-2'>Edit</button>
-            <button onClick={()=> handleDelete()} className='btn btn-danger ms-4'>Delete</button>
+            <button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success  w-100'>Edit</button>
+            <button onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>Delete</button>
             </div>
         </div>
     </>

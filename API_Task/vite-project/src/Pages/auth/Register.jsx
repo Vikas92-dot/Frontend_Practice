@@ -3,7 +3,9 @@ import {Link, useNavigate} from 'react-router-dom';
 import {toast,ToastContainer} from 'react-toastify';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import axiosInstance from "../../AxiosInstance";
+import axiosInstance from "../../Service/AxiosInstance";
+import apiPath from "../../Service/apiPath";
+
 
 const validationSchema = Yup.object({
     name: Yup.string().required("Name is required."),
@@ -24,7 +26,7 @@ function Register(){
             const {name,email,password} = values;
         try {
             
-            let result = await axiosInstance.post('/user',{name,email,password});
+            let result = await axiosInstance.post(apiPath.auth.REGISTER,{name,email,password});
             console.log(result.data.data);
             toast.success("Registration Successfully.");
 
@@ -45,7 +47,7 @@ function Register(){
     return<>
         <div className="container  justify-content-center align-item-center d-flex">
             <ToastContainer/>
-            <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px"}}>
+            <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgb(255, 217, 79))"}}>
                 <h4 className="text-center p-2 text-white bg-primary" style={{width:"100%",height:"50px"}}>Registration Form</h4>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
@@ -87,12 +89,12 @@ function Register(){
                           <div className="text-danger">{formik.errors.password}</div>
                         ) }
 
-                        <button type="submit" className="btn btn-success mt-4">Register</button>
+                        <button type="submit" className="btn btn-success mt-4 w-100">Register</button>
                     </div>
                 </form>
                     <p className="mb-2 mt-2 text-dark text-center">
                         Already have an account?{" "}
-                        <Link to="/" className="text-warning fw-bold">
+                        <Link to="/" className="text-danger fw-bold">
                             Login
                         </Link>
                     </p>

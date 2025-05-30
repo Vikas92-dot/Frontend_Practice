@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import axiosInstance from "../../AxiosInstance";
+import axiosInstance from "../../Service/AxiosInstance";
+import apiPath from "../../Service/apiPath";
+
 
 function VerifyEmail(){
     const {email} = useParams();
@@ -13,11 +15,12 @@ function VerifyEmail(){
         e.preventDefault();
         try {
             console.log(email,emailVerificationTOken,id);
-            const result = await axiosInstance.get(`/user/email/verification?token=${emailVerificationTOken}&userId=${id}`)
+            const result = await axiosInstance.get(`${apiPath.auth.EMAIL_VERIFICATION}?token=${emailVerificationTOken}&userId=${id}`)
             console.log(result);
             toast.success("Email Verified Successfully");
 
             setTimeout(()=>{
+                localStorage.removeItem('emailToken');
                 navigate('/');
             },2000);
             

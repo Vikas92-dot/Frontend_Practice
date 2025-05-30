@@ -1,11 +1,17 @@
 import {createBrowserRouter} from 'react-router-dom';
-import Login from './Components/User/Login';
-import Register from './Components/User/Register';
-import VerifyEmail from './Components/User/VerifyEmail';
-import Dashboard from './Components/User/Dashboard';
-import UserDetails from './Components/User/UserDetails';
-import EditUser from './Components/User/EditUser';
+import Login from '../Pages/auth/Login';
+import Register from '../Pages/auth/Register';
+import VerifyEmail from '../Pages/auth/VerifyEmail';
+import UserList from '../Pages/User/UserList';
+import UserDetails from '../Pages/User/UserDetails';
+import EditUser from '../Pages/User/EditUser';
 import PrivateRoute from './PrivateRoute';
+import ForgotPassword from '../Pages/auth/ForgotPassword';
+import ResetPassword from '../Pages/auth/ResetPassword';
+
+
+
+
 
 const router = createBrowserRouter([
     {
@@ -26,7 +32,7 @@ const router = createBrowserRouter([
     },
     {
         path:'/dashboard',
-        element: <PrivateRoute><Dashboard/></PrivateRoute>
+        element: <PrivateRoute><UserList/></PrivateRoute>
     },
     {
         path:'/user-details/:id',
@@ -35,6 +41,14 @@ const router = createBrowserRouter([
     {
         path:'/edit-user/:id',
         element: <PrivateRoute><EditUser/></PrivateRoute>
+    },
+    {
+        path:'/forgot-password',
+        element: <ForgotPassword/>
+    },
+    {
+        path:"/auth/reset-password/:id/:token",
+        element:<ResetPassword/>
     }
 ])
 export default router;

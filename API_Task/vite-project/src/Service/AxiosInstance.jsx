@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 const axiosInstance = axios.create({
     baseURL:"https://node-js-wse4.onrender.com",
      headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', 
   },
 })
 
