@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../Service/AxiosInstance";
 import apiPath from "../../Service/apiPath";
+import axiosInstance from "../../Helper/AxiosInstance";
 
 
 function UserList(){

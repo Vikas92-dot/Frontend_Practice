@@ -3,8 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {toast,ToastContainer} from 'react-toastify';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import axiosInstance from "../../Service/AxiosInstance";
 import apiPath from "../../Service/apiPath";
+import axiosInstance from "../../Helper/AxiosInstance";
 
 
 const validationSchema = Yup.object({

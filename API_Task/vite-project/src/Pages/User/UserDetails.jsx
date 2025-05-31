@@ -2,8 +2,8 @@ import image from '../../assets/user-profile.png';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import axiosInstance from '../../Service/AxiosInstance';
 import apiPath from '../../Service/apiPath';
+import axiosInstance from '../../Helper/AxiosInstance';
 
 
 function UserDetails(){
@@ -44,7 +44,7 @@ function UserDetails(){
     }
     return<>
         <button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</button>
-        <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem"}}>
+        <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem",background: "linear-gradient(to bottom, #FFF8E1,rgb(100, 79, 255))"}}>
             <ToastContainer/>
             <h2 className='text-center mt-2' >User Details</h2>
             <img className="card-img-top" src={image} alt="User Image" style={{width:"100%",height:"300px"}} />

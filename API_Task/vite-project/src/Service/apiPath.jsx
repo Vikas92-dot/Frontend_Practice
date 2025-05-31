@@ -7,7 +7,8 @@ export default{
     user:{
         USER_LIST:'/user',
         USER_DETAILS:'/user',
-        EDIT_USER:'/user'
+        EDIT_USER:'/user',
+        DETAILS:'/user'
     }
 
 }

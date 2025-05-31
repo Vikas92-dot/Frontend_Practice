@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { Navigate } from "react-router-dom";
-import axiosInstance from "../../Service/AxiosInstance";
+import axiosInstance from "../../Helper/AxiosInstance";
+
 
 function ForgotPassword(){
   const[email,setEmail] = useState();
@@ -17,6 +18,7 @@ function ForgotPassword(){
       setTimeout(()=>{
         <Navigate to={'/'}/>
       },2000);
+      
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data.message);

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import axiosInstance from "../../Service/AxiosInstance";
 import apiPath from "../../Service/apiPath";
+import axiosInstance from "../../Helper/AxiosInstance";
 
 
 function VerifyEmail(){

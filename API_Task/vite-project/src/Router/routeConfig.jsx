@@ -10,9 +10,6 @@ import ForgotPassword from '../Pages/auth/ForgotPassword';
 import ResetPassword from '../Pages/auth/ResetPassword';
 
 
-
-
-
 const router = createBrowserRouter([
     {
         path:"*",

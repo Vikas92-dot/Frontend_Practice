@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import * as Yup from 'yup';
-import axiosInstance from "../../Service/AxiosInstance";
 import apiPath from "../../Service/apiPath";
+import axiosInstance from "../../Helper/AxiosInstance";
 
 
 const validationSchema = Yup.object({
@@ -24,7 +24,7 @@ function EditUser(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axiosInstance.get(`${apiPath.user.EDIT_USER}/${id}`);
+            const result = await axiosInstance.get(`${apiPath.user.DETAILS}/${id}`);
             console.log("Result",result.data.user);
             setData(result?.data?.user);
             
@@ -40,7 +40,7 @@ function EditUser(){
         onSubmit: async(values)=>{
             const {name,email,password} = values;
             try {
-                const status = await axiosInstance.put(`/user/${id}`,{name,email,password})
+                const status = await axiosInstance.put(`${apiPath.user.EDIT_USER}/${id}`,{name,email,password})
                 console.log(status);
                 toast.success("Save Changes Successfully");
 
@@ -57,7 +57,7 @@ function EditUser(){
     return<>
         <div className="container justify-content-center align-item-center d-flex">
             <ToastContainer/>
-            <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px"}}>
+            <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgba(252, 255, 79, 0.57))"}}>
                 <h3 className="text-center p-2 text-white bg-secondary" style={{width:"100%",height:"50px",borderRadius:"5px"}}>Edit User</h3>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
