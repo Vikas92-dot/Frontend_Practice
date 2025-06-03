@@ -1,10 +1,10 @@
 import { useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
-import {toast,ToastContainer} from 'react-toastify';
+import {toast} from 'react-toastify';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import apiPath from "../../Service/apiPath";
-import axiosInstance from "../../Helper/AxiosInstance";
+import authService from "../../Service/AuthApi";
+
 
 
 const validationSchema = Yup.object({
@@ -16,28 +16,38 @@ const validationSchema = Yup.object({
 function Register(){
     const[data,setData] = useState({name:'',email:'',password:''});
     const navigate = useNavigate();
+    //const [processing,setProcessing] = useState(false);
 
     
     const formik = useFormik({
         initialValues: data,
         validationSchema,
         enableReinitialize: true,
-        onSubmit: async (values) =>{
-            const {name,email,password} = values;
+        onSubmit: async (values,{setSubmitting}) =>{
+            const {email} = values;
+            const body = {
+                name: values.name,
+                email: values.email,
+                password: values.password
+            }
         try {
             
-            let result = await axiosInstance.post(apiPath.auth.REGISTER,{name,email,password});
+            const result = await authService.register(body);
+            if(result){
+                setSubmitting(false);
+            }
             console.log(result.data.data);
             toast.success("Registration Successfully.");
 
             const{emailVerificationTOken,id} = result.data.data;
             const emailToken = localStorage.setItem("emailToken",emailVerificationTOken);
             const userId = localStorage.setItem("userId",id);
-            setTimeout(()=>{
-                navigate(`/email-verification/${email}`)
             
-            },2000);
+            navigate(`/email-verification/${email}`)
+            
+            
         } catch (error) {
+            setSubmitting(false);
             console.error('An error occurred:', error.message);
             toast.error(error?.response?.data.message);
         }
@@ -45,10 +55,9 @@ function Register(){
     })
     
     return<>
-        <div className="container  justify-content-center align-item-center d-flex">
-            <ToastContainer/>
+        <div className="container justify-content-center align-item-center d-flex">
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgb(255, 217, 79))"}}>
-                <h4 className="text-center p-2 text-white bg-primary" style={{width:"100%",height:"50px"}}>Registration Form</h4>
+                <h4 className="text-center p-2 text-white bg-primary" style={{width:"100%",height:"50px",borderRadius:"5px"}}>Registration Form</h4>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
                         <label className="form-label">Name</label>
@@ -89,7 +98,12 @@ function Register(){
                           <div className="text-danger">{formik.errors.password}</div>
                         ) }
 
-                        <button type="submit" className="btn btn-success mt-4 w-100">Register</button>
+                        <button disabled={formik.isSubmitting} type="submit" className="btn btn-success mt-4 w-100">{formik.isSubmitting ? 
+                        <div className="text-center">
+                            <div className="spinner-border" role="status">
+                             <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div> : "Register"}</button>
                     </div>
                 </form>
                     <p className="mb-2 mt-2 text-dark text-center">

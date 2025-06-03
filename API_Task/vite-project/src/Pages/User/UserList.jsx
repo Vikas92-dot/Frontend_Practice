@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiPath from "../../Service/apiPath";
-import axiosInstance from "../../Helper/AxiosInstance";
+import userService from "../../Service/UserApi";
 
 
 function UserList(){
@@ -11,19 +10,16 @@ function UserList(){
     const[totalPages,setTotalPages] = useState(0);
     const navigate = useNavigate();
     const [loading,setLoading] = useState(true);
+    const userName = localStorage.getItem('name');
     
-    useEffect(()=>{  
-        getUsers();
-                
-    },[])
-
     useEffect(()=>{
         getUsers();
     },[page]);
 
     const getUsers = async()=>{
         try {
-        const users = await axiosInstance.get(`${apiPath.user.USER_LIST}?pageNumber=${page}&pageSize=10`);
+        // const users = await axiosInstance.get(`${apiPath.user.USER_LIST}?pageNumber=${page}&pageSize=10`);
+            const users = await userService.list({page});
             console.log("All Users",users.data);
             setUsers(users.data.data);
             setLoading(false);
@@ -54,9 +50,10 @@ function UserList(){
 
     return<>
          <div className="row">
-             <h2 className="text-center p-2 bg-info fw-bold" style={{borderRadius:"5px",border:"1px solid black"}}>Users List</h2>
+             <h2 className="text-center p-2 bg-info fw-bold text-bold" style={{borderRadius:"5px",border:"1px solid black"}}>Users List</h2>
+                 <h4 className='mt-2 text-white text-center fw-bold p-2 bg-secondary' style={{position:"relative",left:"11%", border:"1px solid black",width:"15rem",borderRadius:"10px"}}>Hello, {userName} </h4>
              {/* <button onClick={()=> navigate('/register')} className="btn btn-warning fw-bold" style={{position:"absolute",left:"80%",top:"11%",width:"8%"}}>Add User</button> */}
-             <button onClick={()=> handleLogOut()} className="btn btn-danger fw-bold" style={{width:"7%",position:"absolute",top:"2%",left:"92%"}}>Log Out</button>
+             <button onClick={()=> handleLogOut()} className="btn btn-danger fw-bold" style={{width:"6rem",position:"absolute",top:"2%",left:"92%"}}>Log Out</button>
 
              {loading 
                 ?   <div className="text-center">
@@ -64,7 +61,7 @@ function UserList(){
                              <span class="visually-hidden">Loading...</span>
                             </div>
                     </div>
-                : (<table className="table table-danger table-bordered border-dark table-hover text-center" style={{position:"absolute",top:"15%",left:"10%",width:"80%",height:"500px"}}>
+                : (<table className="table table-danger table-bordered border-dark table-hover text-center" style={{position:"absolute",top:"20%",left:"10%",width:"80%",height:"500px"}}>
                 <thead>
                     <tr>
                         <th>Sr no.</th>
@@ -86,15 +83,12 @@ function UserList(){
                     ))}
                 </tbody>
              </table>) }
-             
-            
          </div>
-          <div  style={{position:"absolute",top:"44rem",left:"40%"}}>
+          <div style={{position:"absolute",top:"46rem",left:"40%"}}>
                 <button onClick={()=> setPrevious()} disabled={page === 1} className="btn btn-primary">Previous</button>
                 <span className="fw-bold">Page {page} of {totalPages}</span>
                 <button onClick={()=> setNext()} disabled={page === totalPages} className="btn btn-success ms-2">Next</button>
              </div>
-        
         </>
 }
 export default UserList;

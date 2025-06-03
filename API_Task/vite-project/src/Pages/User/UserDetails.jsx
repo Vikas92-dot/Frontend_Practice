@@ -1,9 +1,9 @@
 import image from '../../assets/user-profile.png';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import apiPath from '../../Service/apiPath';
-import axiosInstance from '../../Helper/AxiosInstance';
+import { toast } from 'react-toastify';
+import userService from '../../Service/UserApi';
+
 
 
 function UserDetails(){
@@ -12,6 +12,7 @@ function UserDetails(){
     const[userData, setUserData] = useState({name:'',email:''});
     const navigate = useNavigate();
     const [loading,setLoading] = useState(true);
+    const [processing,setProcessing] = useState(false);
 
     useEffect(()=>{
         fetchDetails();
@@ -19,10 +20,11 @@ function UserDetails(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axiosInstance.get(`${apiPath.user.USER_DETAILS}/${id}`);
+            const result = await userService.show({id});
             console.log("Result",result?.data?.user);
             setUserData(result?.data?.user);
             setLoading(false);
+
             
         } catch (error) {
             console.log(error);
@@ -31,12 +33,16 @@ function UserDetails(){
     const handleDelete = async () =>{
         if(window.confirm("Do you want to delete it?")){
             try {
-            const result = await axiosInstance.delete(`/user/${id}`)
+            setProcessing(true);
+            const result = await userService.delete({id});
+            if(result){
+                setProcessing(false);
+            }
             console.log(result);
             toast.success("User deleted successfully.");
-            setTimeout(()=>{
-                navigate(-1);
-            },2000);
+            
+            navigate(-1);
+            
         } catch (error) {
             console.log(error);
         }
@@ -44,9 +50,9 @@ function UserDetails(){
     }
     return<>
         <button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</button>
-        <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem",background: "linear-gradient(to bottom, #FFF8E1,rgb(100, 79, 255))"}}>
-            <ToastContainer/>
+        <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem",background: "linear-gradient(to bottom, #FFF8E1,rgb(243, 255, 79))"}}>
             <h2 className='text-center mt-2' >User Details</h2>
+        
             <img className="card-img-top" src={image} alt="User Image" style={{width:"100%",height:"300px"}} />
             <div className='p-2'>
                 <span className='fw-bold' style={{fontSize:"30px"}}>Name:</span>
@@ -70,7 +76,11 @@ function UserDetails(){
             <div className='text-center p-2'>
 
             <button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success  w-100'>Edit</button>
-            <button onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>Delete</button>
+            <button disabled={processing} onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>{processing ? <div className="text-center">
+                            <div class="spinner-border" role="status">
+                             <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div> : "Delete"}</button>
             </div>
         </div>
     </>

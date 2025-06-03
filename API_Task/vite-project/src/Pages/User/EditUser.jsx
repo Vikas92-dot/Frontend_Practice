@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import * as Yup from 'yup';
-import apiPath from "../../Service/apiPath";
-import axiosInstance from "../../Helper/AxiosInstance";
+import userService from "../../Service/UserApi";
+
 
 
 const validationSchema = Yup.object({
@@ -17,6 +17,7 @@ function EditUser(){
     const[data,setData] = useState({name:'',email:'',password:''});
     const{id} = useParams();
     const navigate = useNavigate();
+    //const [processing,setProcessing] = useState(false);
 
     useEffect(()=>{
         fetchDetails();
@@ -24,7 +25,7 @@ function EditUser(){
 
     const fetchDetails = async()=>{
         try {
-            const result = await axiosInstance.get(`${apiPath.user.DETAILS}/${id}`);
+            const result = await userService.show({id});
             console.log("Result",result.data.user);
             setData(result?.data?.user);
             
@@ -37,17 +38,21 @@ function EditUser(){
         initialValues:data,
         validationSchema,
         enableReinitialize:true,
-        onSubmit: async(values)=>{
+        onSubmit: async(values,{setSubmitting})=>{
             const {name,email,password} = values;
             try {
-                const status = await axiosInstance.put(`${apiPath.user.EDIT_USER}/${id}`,{name,email,password})
+                //setProcessing(true);
+                const status = await userService.update({id,name,email,password});
+
+                if(status){
+                    setSubmitting(false);    
+                }
                 console.log(status);
                 toast.success("Save Changes Successfully");
-
-                setTimeout(()=>{
-                    navigate(-1);
-                },2000);
+                navigate(-1);
+                
             } catch (error) {
+                setSubmitting(false);    
                 console.log(error);
                 toast.error("Something went wrong")
                 
@@ -56,14 +61,14 @@ function EditUser(){
     })
     return<>
         <div className="container justify-content-center align-item-center d-flex">
-            <ToastContainer/>
+            <button onClick={()=>{ navigate(-1)}} style={{width:"6rem",height:"3rem",position:"absolute",left:"2%"}} className='btn btn-warning mt-4 '>Dashboard</button>
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgba(252, 255, 79, 0.57))"}}>
                 <h3 className="text-center p-2 text-white bg-secondary" style={{width:"100%",height:"50px",borderRadius:"5px"}}>Edit User</h3>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
                         <label className="form-label">Name</label>
                         <input 
-                        name="name" 
+                        name="name"
                         value={formik.values?.name} 
                         onChange={formik.handleChange} 
                         onBlur={formik.handleBlur}
@@ -100,7 +105,12 @@ function EditUser(){
                           <div className="text-danger">{formik.errors.password}</div>
                         )}
 
-                        <button type="submit" className="btn btn-success w-100 mt-2 mb-2 ">Save</button>
+                        <button disabled={formik.isSubmitting} type="submit" className="btn btn-success w-100 mt-2 mb-2 ">{formik.isSubmitting ? 
+                        <div className="text-center">
+                            <div class="spinner-border" role="status">
+                             <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div> : "Save"}</button>
                     </div>
                 </form>
             </div>

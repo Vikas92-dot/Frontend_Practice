@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
+const baseURL = import.meta.env.VITE_API_URL;
 const axiosInstance = axios.create({
-    baseURL:"https://node-js-wse4.onrender.com",
+    baseURL:baseURL,
      headers: {
     'Content-Type': 'application/json', 
   },
@@ -30,7 +31,9 @@ axiosInstance.interceptors.response.use(
     (error) => {
         
         if(error.response && error.response.status === 404 || error.response.status === 401){
-            <Navigate to={'/'} />
+          localStorage.removeItem('token');
+          localStorage.removeItem('name');
+          <Navigate to={'/'} />
         }
         return Promise.reject(error)
     }

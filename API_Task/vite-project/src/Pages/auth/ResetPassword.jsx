@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import axiosInstance from "../../Helper/AxiosInstance";
+import authService from "../../Service/AuthApi";
+
 
 function ResetPassword(){
   const[password,setPassword] = useState();
@@ -10,6 +11,7 @@ function ResetPassword(){
   const[passError,setPassError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword,setShowConfirmPassword] = useState(false);
+  const [processing,setProcessing] = useState(false);
   const {id,token} = useParams();
   const userId = id;
   const navigate = useNavigate();
@@ -38,21 +40,30 @@ function ResetPassword(){
     console.log("Id and token",userId,token);
     
     e.preventDefault();
-    if (password !== confirmPass) {
+    if (password !== confirmPass) { 
       console.log(password,confirmPass);
-      
       setPassError("Password do not match.");
       return;
     }
     try {
-        const response = await axiosInstance.post('/user/reset-password',{userId,token,password});
+        setProcessing(true);
+        const body = {
+          userId:userId,
+          token:token,
+          password:password
+        }
+        const response = await authService.resetPassword(body)
+        if(response){
+          setProcessing(false);
+        }
         console.log(response.data);
         toast.success("Password Changed Successfully.")
         
-        setTimeout(()=>{
-          navigate('/');
-        },2000);
+        
+        navigate('/');
+      
     } catch (error) {
+      setProcessing(false);
       console.log(error);
       toast.error(error?.response?.data.message);
       
@@ -60,14 +71,13 @@ function ResetPassword(){
   }
 
   return<>
-  <section  style={{ background: "linear-gradient(to bottom, #FFF8E1, #FFD54F)", height:"100vh" }}>
-        <ToastContainer/>
+  <section style={{ background: "linear-gradient(to bottom, #FFF8E1, #FFD54F)", height:"100vh" }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-6 col-xl-4">
               <div className="card rounded-3 p-4">
                 <h3 className="mb-4 text-center">Reset Password</h3>
-                <form>               
+                <form>             
                   <div className="form-outline mb-4">
                     <label className="form-label">New Password</label>
                     <div className="input-group">
@@ -89,7 +99,12 @@ function ResetPassword(){
                     </div>
                   </div>
                   {passError && <p className="text-danger">{passError}</p>}
-                  <button onClick={handleSubmit} type="submit" className="btn btn-warning btn-lg w-100">Change Password</button>
+                  <button disabled={processing === true} onClick={handleSubmit} type="submit" className="btn btn-warning btn-lg w-100">{processing === true ? 
+                        <div className="text-center">
+                            <div class="spinner-border" role="status">
+                             <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div> : "Change Password"}</button>
                 </form>
               </div>
             </div>

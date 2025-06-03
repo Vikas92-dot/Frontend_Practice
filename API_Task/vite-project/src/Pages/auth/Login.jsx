@@ -2,9 +2,8 @@ import { useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import { toast, ToastContainer } from "react-toastify";
-import apiPath from "../../Service/apiPath";
-import axiosInstance from "../../Helper/AxiosInstance";
+import { toast } from "react-toastify";
+import authService from "../../Service/AuthApi";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Invalid Email").required("Email is required."),
@@ -19,31 +18,38 @@ function Login(){
         initialValues: data,
         validationSchema,
         enableReinitialize: true,
-        onSubmit: async (values) =>{
-            const {email,password} = values;
-        try {
-            let result = await axiosInstance.post(apiPath.auth.LOGIN,{email,password});
+        onSubmit: async (values,{setSubmitting}) =>{
+                        
+            const body = {
+                email: values.email,
+                password: values.password
+            }
+            try {
+                
+                let result = await authService.login(body);
+                if(result){
+                    setSubmitting(false);    
+                }
             console.log(result.data.data);
              const token = result.data.data.token;
+             const name = result.data.data.name;
+            localStorage.setItem("name",name);
 
-             const localToken = localStorage.setItem("token",token);
+            const localToken = localStorage.setItem("token",token);
             console.log(localToken);
-            
             toast.success("Login Successfully");
-            setTimeout(()=>{
-                navigate(`/dashboard`)
-            },2000);
+            
+            navigate(`/dashboard`)
             
         } catch (error) {
+            setSubmitting(false);
             console.log(error);
             toast.error(error?.response?.data.message);
         }
-    }
+    },
     })
-    
     return<>
         <div className="container justify-content-center align-item-center d-flex" style={{}}>
-            <ToastContainer/>
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1, #FFD54F)"}}>
                 <h3 className="text-center p-2 text-white bg-dark" style={{width:"100%",height:"50px"}}>Login</h3>
                 <form onSubmit={formik.handleSubmit} >
@@ -74,7 +80,12 @@ function Login(){
                           <div className="text-danger">{formik.errors.password}</div>
                         )} 
 
-                        <button type="submit" className="btn btn-success mt-4 w-100">Login</button>
+                        <button disabled={formik.isSubmitting} type="submit" className="btn btn-success mt-4 w-100">{formik.isSubmitting ? 
+                        <div className="text-center">
+                            <div class="spinner-border" role="status">
+                             <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div> : "Login"}</button>
                     </div>
                 </form>
                         <Link to="/forgot-password" className="text-danger text-center fw-bold">
