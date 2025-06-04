@@ -4,6 +4,7 @@ import {toast} from 'react-toastify';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import authService from "../../Service/AuthApi";
+import { Button } from "../../Components/button";
 
 
 
@@ -98,12 +99,13 @@ function Register(){
                           <div className="text-danger">{formik.errors.password}</div>
                         ) }
 
-                        <button disabled={formik.isSubmitting} type="submit" className="btn btn-success mt-4 w-100">{formik.isSubmitting ? 
+                        <Button disabled={formik.isSubmitting} type="submit" className="btn btn-success mt-4 w-100">{formik.isSubmitting ? 
                         <div className="text-center">
                             <div className="spinner-border" role="status">
                              <span className="visually-hidden">Loading...</span>
                             </div>
-                        </div> : "Register"}</button>
+                        </div> : "Register"}</Button>
+                        
                     </div>
                 </form>
                     <p className="mb-2 mt-2 text-dark text-center">

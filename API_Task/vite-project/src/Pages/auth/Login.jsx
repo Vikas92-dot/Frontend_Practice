@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import { toast } from "react-toastify";
 import authService from "../../Service/AuthApi";
+import { Button } from "../../Components/button";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Invalid Email").required("Email is required."),
@@ -79,13 +80,14 @@ function Login(){
                         {formik.touched.password && formik.errors.password && (
                           <div className="text-danger">{formik.errors.password}</div>
                         )} 
-
-                        <button disabled={formik.isSubmitting} type="submit" className="btn btn-success mt-4 w-100">{formik.isSubmitting ? 
+                          <Button type="submit" disabled={formik.isSubmitting} className="btn btn-success mt-4 w-100" >
+                            {formik.isSubmitting ? 
                         <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>
                             </div>
-                          </div> : "Login"}</button>
+                          </div> : "Login"}
+                          </Button>
                     </div>
                 </form>
                         <Link to="/forgot-password" className="text-danger text-center fw-bold">

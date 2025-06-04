@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import userService from '../../Service/UserApi';
+import { Button } from '../../Components/button';
 
 
 
@@ -49,7 +50,7 @@ function UserDetails(){
     }
     }
     return<>
-        <button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</button>
+        <Button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</Button>
         <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem",background: "linear-gradient(to bottom, #FFF8E1,rgb(243, 255, 79))"}}>
             <h2 className='text-center mt-2' >User Details</h2>
         
@@ -75,12 +76,12 @@ function UserDetails(){
             </div> 
             <div className='text-center p-2'>
 
-            <button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success  w-100'>Edit</button>
-            <button disabled={processing} onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>{processing ? <div className="text-center">
+            <Button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success  w-100'>Edit</Button>
+            <Button disabled={processing} onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>{processing ? <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>
                             </div>
-                          </div> : "Delete"}</button>
+                          </div> : "Delete"}</Button>
             </div>
         </div>
     </>

@@ -33,10 +33,10 @@ const resetPassword = (body)=>{
     return response;
 }
 const authService={
-    register:register,
-    login:login,
-    emailVerification:emailVerification,
-    forgotPassword:forgotPassword,
-    resetPassword:resetPassword
+    register,
+    login,
+    emailVerification,
+    forgotPassword,
+    resetPassword
 }
 export default authService;

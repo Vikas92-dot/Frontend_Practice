@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import authService from "../../Service/AuthApi";
+import { Button } from "../../Components/button";
 
 
 
@@ -48,11 +49,11 @@ function VerifyEmail(){
                     <div className="form-group p-2">
                         <label className="form-label">Email</label>
                         <input readOnly name="email" value={email} className="form-control mb-2" type="email"/>
-                        <button disabled={processing === true} type="submit" className="btn btn-success text-white fw-bold mt-4">{processing === true ? <div className="text-center">
+                        <Button disabled={processing === true} type="submit" className="btn btn-success text-white fw-bold mt-4">{processing === true ? <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>
                             </div>
-                          </div> : "Verify"}</button>
+                          </div> : "Verify"}</Button>
                     </div>
                 </form>
             </div>

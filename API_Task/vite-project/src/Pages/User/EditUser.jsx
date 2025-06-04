@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from 'yup';
 import userService from "../../Service/UserApi";
+import { Button } from "../../Components/button";
 
 
 
@@ -17,7 +18,7 @@ function EditUser(){
     const[data,setData] = useState({name:'',email:'',password:''});
     const{id} = useParams();
     const navigate = useNavigate();
-    //const [processing,setProcessing] = useState(false);
+    
 
     useEffect(()=>{
         fetchDetails();
@@ -39,10 +40,15 @@ function EditUser(){
         validationSchema,
         enableReinitialize:true,
         onSubmit: async(values,{setSubmitting})=>{
-            const {name,email,password} = values;
+            
+            const body = {
+                name: values.name,
+                email: values.email,
+                password: values.password
+            }
             try {
-                //setProcessing(true);
-                const status = await userService.update({id,name,email,password});
+                
+                const status = await userService.update(id,body);
 
                 if(status){
                     setSubmitting(false);    
@@ -61,7 +67,7 @@ function EditUser(){
     })
     return<>
         <div className="container justify-content-center align-item-center d-flex">
-            <button onClick={()=>{ navigate(-1)}} style={{width:"6rem",height:"3rem",position:"absolute",left:"2%"}} className='btn btn-warning mt-4 '>Dashboard</button>
+            <Button onClick={()=>{ navigate(-1)}} style={{width:"6rem",height:"3rem",position:"absolute",left:"2%"}} className='btn btn-warning mt-4 '>Dashboard</Button>
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgba(252, 255, 79, 0.57))"}}>
                 <h3 className="text-center p-2 text-white bg-secondary" style={{width:"100%",height:"50px",borderRadius:"5px"}}>Edit User</h3>
                 <form onSubmit={formik.handleSubmit} >
@@ -105,12 +111,12 @@ function EditUser(){
                           <div className="text-danger">{formik.errors.password}</div>
                         )}
 
-                        <button disabled={formik.isSubmitting} type="submit" className="btn btn-success w-100 mt-2 mb-2 ">{formik.isSubmitting ? 
+                        <Button disabled={formik.isSubmitting} type="submit" className="btn btn-success w-100 mt-2 mb-2 ">{formik.isSubmitting ? 
                         <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>
                             </div>
-                          </div> : "Save"}</button>
+                          </div> : "Save"}</Button>
                     </div>
                 </form>
             </div>

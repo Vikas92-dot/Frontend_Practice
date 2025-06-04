@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import authService from "../../Service/AuthApi";
+import { Button } from "../../Components/button";
 
 
 function ResetPassword(){
@@ -99,7 +100,7 @@ function ResetPassword(){
                     </div>
                   </div>
                   {passError && <p className="text-danger">{passError}</p>}
-                  <button disabled={processing === true} onClick={handleSubmit} type="submit" className="btn btn-warning btn-lg w-100">{processing === true ? 
+                  <button disabled={processing} onClick={handleSubmit} type="submit" className="btn btn-warning btn-lg w-100">{processing ? 
                         <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>

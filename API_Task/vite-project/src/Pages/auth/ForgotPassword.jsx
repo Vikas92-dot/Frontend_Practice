@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
 import authService from "../../Service/AuthApi";
+import { Button } from "../../Components/button";
 
 
 
@@ -49,12 +50,12 @@ function ForgotPassword(){
                     <input onChange={(event)=>setEmail(event.target.value)} placeholder="Enter your Email" type="text" className="form-control" required    
                     />
                   </div>
-                  <button disabled={processing === true} type="submit" className="btn btn-warning btn-lg w-100">{processing === true ? 
+                  <Button disabled={processing === true} type="submit" className="btn btn-warning btn-lg w-100">{processing === true ? 
                         <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>
                             </div>
-                          </div> : "Submit"}</button>
+                          </div> : "Submit"}</Button>
                 </form>
               </div>
             </div>

@@ -20,15 +20,15 @@ const Delete =({id})=>{
     return result;
 }
 //Edit User
-const update =({id,name,email,password})=>{
-    const status = axiosInstance.put(`${apiPath.user.EDIT_USER}/${id}`,{name,email,password})
+const update =(id,body)=>{
+    const status = axiosInstance.put(`${apiPath.user.EDIT_USER}/${id}`,body)
     return status;
 }
 
 const userService ={
-    list:list,
-    show:show,
-    update:update,
-    delete:Delete
+    list,
+    show,
+    update,
+    Delete
 } 
 export default userService;
