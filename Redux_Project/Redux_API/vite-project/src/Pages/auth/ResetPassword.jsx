@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import authService from "../../Service/AuthApi";
 import { Button } from "../../Components/button";
+import { resetPassword } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 
 function ResetPassword(){
@@ -16,6 +18,7 @@ function ResetPassword(){
   const {id,token} = useParams();
   const userId = id;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e)=>{
     const value = e.target.value;
@@ -46,30 +49,25 @@ function ResetPassword(){
       setPassError("Password do not match.");
       return;
     }
-    try {
-        setProcessing(true);
+
+     setProcessing(true);
         const body = {
           userId:userId,
           token:token,
           password:password
         }
-        const response = await authService.resetPassword(body)
-        if(response){
-          setProcessing(false);
+
+    dispatch(resetPassword(body)).then((response)=>{
+           if(response.meta.requestStatus === "fulfilled"){
+             
+             setProcessing(false); 
+                navigate(`/`)
+            }
+            else {
+                 setProcessing(false); 
+            }
+            })
         }
-        console.log(response.data);
-        toast.success("Password Changed Successfully.")
-        
-        
-        navigate('/');
-      
-    } catch (error) {
-      setProcessing(false);
-      console.log(error);
-      toast.error(error?.response?.data.message);
-      
-    }
-  }
 
   return<>
   <section style={{ background: "linear-gradient(to bottom, #FFF8E1, #FFD54F)", height:"100vh" }}>

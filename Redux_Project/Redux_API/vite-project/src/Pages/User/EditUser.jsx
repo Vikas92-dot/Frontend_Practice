@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import * as Yup from 'yup';
 import userService from "../../Service/UserApi";
 import { Button } from "../../Components/button";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../features/user/userSlice";
 
 
 
@@ -18,51 +20,53 @@ function EditUser(){
     const[data,setData] = useState({name:'',email:'',password:''});
     const{id} = useParams();
     const navigate = useNavigate();
-    
+    const {userDetails} = useSelector((state)=> state.user);
+    const dispatch = useDispatch();
 
     useEffect(()=>{
-        fetchDetails();
-    },[]);
+        setData(userDetails)
+    },[userDetails]);
 
-    const fetchDetails = async()=>{
-        try {
-            const result = await userService.show({id});
-            console.log("Result",result.data.user);
-            setData(result?.data?.user);
-            
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const formik = useFormik({
         initialValues:data,
         validationSchema,
         enableReinitialize:true,
-        onSubmit: async(values,{setSubmitting})=>{
+        onSubmit: (values,{setSubmitting})=>{
             
             const body = {
                 name: values.name,
                 email: values.email,
                 password: values.password
             }
-            try {
+            dispatch(update(id,body))
+                    .then((response)=>{
+                    if(response.meta.requestStatus === "fulfilled"){  
+                        setSubmitting(false);      
+                        navigate(-1)
+                    }
+                    else{
+                        setSubmitting(false);
+                    }
+                    })
+                    
+            // try {
                 
-                const status = await userService.update(id,body);
+            //     const status = await userService.update(id,body);
 
-                if(status){
-                    setSubmitting(false);    
-                }
-                console.log(status);
-                toast.success("Save Changes Successfully");
-                navigate(-1);
+            //     if(status){
+            //         setSubmitting(false);    
+            //     }
+            //     console.log(status);
+            //     toast.success("Save Changes Successfully");
+            //     navigate(-1);
                 
-            } catch (error) {
-                setSubmitting(false);    
-                console.log(error);
-                toast.error("Something went wrong")
+            // } catch (error) {
+            //     setSubmitting(false);    
+            //     console.log(error);
+            //     toast.error("Something went wrong")
                 
-            }
+            // }
         }
     })
     return<>

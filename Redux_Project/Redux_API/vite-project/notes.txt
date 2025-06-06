@@ -25,3 +25,135 @@ src
     helper
         axiosInterceptors.js
         Common.js
+
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import userApi from './userApi';
+import { toast } from 'react-toastify';
+
+const initialState = {
+  users: [],
+  totalRecords: 0,
+  userDetails: null, 
+  loading: false,
+  error: null,
+};
+
+export const fetchUsers = createAsyncThunk(
+  'user/fetchUsers',
+  async (params, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getAllUsers(params);
+      return {
+        users: response.data || [],
+        totalRecords: response.totalRecords || 0,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message || 'Failed to fetch users');
+    }
+  }
+);
+
+export const fetchUserDetails = createAsyncThunk(
+  'user/fetchUserDetails',
+  async ({ userId }, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getUserDetails({ userId });
+      return response.user || response;
+    } catch (error) {
+      return rejectWithValue(error.message || 'Failed to fetch user details');
+    }
+  }
+);
+
+export const editUser = createAsyncThunk(
+  'user/editUser',
+  async ({ userId, body }, { rejectWithValue }) => {
+    try {
+      const response = await userApi.editUser(userId, body);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message || 'Failed to update user');
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  'user/deleteUser',
+  async ({ userId }, { rejectWithValue }) => {
+    try {
+      const response = await userApi.deleteUser({ userId });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message || 'Failed to delete user');
+    }
+  }
+);
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload.users;
+        state.totalRecords = action.payload.totalRecords;
+        toast.success('Users fetched successfully!');
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Failed to fetch users';
+        toast.error(state.error);
+      })
+      .addCase(fetchUserDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userDetails = action.payload;
+        if (!action.payload?.name || !action.payload?.email) {
+          state.error = 'User details incomplete.';
+          toast.error('User details incomplete.');
+        }
+      })
+      .addCase(fetchUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Failed to fetch user details';
+        toast.error(state.error);
+      })
+      .addCase(editUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editUser.fulfilled, (state) => {
+        state.loading = false;
+        toast.success('User updated successfully!');
+      })
+      .addCase(editUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Failed to update user';
+        toast.error(state.error);
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteUser.fulfilled, (state) => {
+        state.loading = false;
+        toast.success('User deleted successfully.');
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Failed to delete user';
+        toast.error(state.error);
+      });
+  },
+});
+

@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import { Button } from "../../Components/button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
 
 const validationSchema = Yup.object({
@@ -15,7 +15,6 @@ function Login(){
     const[data,setData] = useState({email:'',password:''});
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const result = useSelector((state) => state.auth);
 
     const formik = useFormik({
         initialValues: data,
@@ -40,10 +39,6 @@ function Login(){
                 setSubmitting(false);
             }
             })
-        
-        console.log("Result:",result);    
-            
-        
     },
     })
     return<>

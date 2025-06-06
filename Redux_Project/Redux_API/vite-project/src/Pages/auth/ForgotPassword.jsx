@@ -1,39 +1,35 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import authService from "../../Service/AuthApi";
 import { Button } from "../../Components/button";
+import { forgotPassword } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 
 
 function ForgotPassword(){
   const[email,setEmail] = useState();
   const [processing,setProcessing] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
-    try {
-      setProcessing(true);
-      const body ={
-        email:email
-      }
-      const response = await authService.forgotPassword(body);
-      if(response){
-        setProcessing(false);
-      }
-      console.log(response.data.data);
+    setProcessing(true);
 
-      toast.success("Password reset link has been sent to your Email");
-      
-        <Navigate to={'/'}/>
-      
-      
-    } catch (error) {
-      setProcessing(false);
-      console.log(error);
-      toast.error(error?.response?.data.message);
-    }
+    const body ={email}
+     dispatch(forgotPassword(body)).then((response)=>{
+       if(response.meta.requestStatus === "fulfilled"){
+         
+         setProcessing(false); 
+            navigate(`/`)
+        }
+        else {
+             setProcessing(false); 
+        }
+        })
   }
 
     return<>

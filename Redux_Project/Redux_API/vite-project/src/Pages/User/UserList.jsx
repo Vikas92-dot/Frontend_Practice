@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userService from "../../Service/UserApi";
 import { Button } from "../../Components/button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { list } from "../../features/user/userSlice";
 
 
 function UserList(){
@@ -11,27 +12,21 @@ function UserList(){
     const[page,setPage] = useState(1);
     const[totalPages,setTotalPages] = useState(0);
     const navigate = useNavigate();
-    const [loading,setLoading] = useState(true);
-    //const userName = localStorage.getItem('name');
     const userName = useSelector((state)=> state.auth.name)
+    const {userList,totalRecords,loading} = useSelector((state)=> state.user);
+    const dispatch = useDispatch();
     
     useEffect(()=>{
-        getUsers();
-    },[page]);
+        dispatch(list({page}));
+    },[page,dispatch]);
 
-    const getUsers = async()=>{
-        try {
-            const users = await userService.list({page});
-            console.log("All Users",users.data);
-            setUsers(users.data.data);
-            setLoading(false);
-            let totalPages = Math.ceil(users.data.totalRecords/10)
-            setTotalPages(totalPages);
-            console.log(users.data.totalRecords);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    useEffect(() => {
+        console.log("All Users", userList);
+        setUsers(userList);
+        let totalPages = Math.ceil(totalRecords / 10);
+        setTotalPages(totalPages);
+    }, [userList, totalRecords]);
+
     const setNext =()=>{
         if(page < totalPages ){
             setPage((prev)=> prev+1);
@@ -41,7 +36,7 @@ function UserList(){
         if(page > 1){
             setPage((prev)=> prev-1);
         }
-    } 
+    }
     const handleLogOut =()=>{
         if(window.confirm("Do you want to LogOut?")){
             localStorage.removeItem('token');

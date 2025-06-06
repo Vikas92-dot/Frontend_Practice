@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import userService from '../../Service/UserApi';
 import { Button } from '../../Components/button';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteUser, show } from '../../features/user/userSlice';
 
 
 
@@ -12,41 +14,26 @@ function UserDetails(){
     const{id} = useParams();
     const[userData, setUserData] = useState({name:'',email:''});
     const navigate = useNavigate();
-    const [loading,setLoading] = useState(true);
-    const [processing,setProcessing] = useState(false);
+    //const [processing,setProcessing] = useState(false);
+    const {userDetails,loading} = useSelector((state)=> state.user);
+    const dispatch = useDispatch();
 
     useEffect(()=>{
-        fetchDetails();
-    },[]);
+        dispatch(show({id}));
+    },[dispatch]);
 
-    const fetchDetails = async()=>{
-        try {
-            const result = await userService.show({id});
-            console.log("Result",result?.data?.user);
-            setUserData(result?.data?.user);
-            setLoading(false);
+    useEffect(()=>{
+        setUserData(userDetails);
+    },[userDetails]);
 
-            
-        } catch (error) {
-            console.log(error);
-        }
-    }
     const handleDelete = async () =>{
         if(window.confirm("Do you want to delete it?")){
-            try {
-            setProcessing(true);
-            const result = await userService.delete({id});
-            if(result){
-                setProcessing(false);
-            }
-            console.log(result);
-            toast.success("User deleted successfully.");
-            
-            navigate(-1);
-            
-        } catch (error) {
-            console.log(error);
+
+        dispatch(deleteUser({id})).then((response)=>{
+        if(response.meta.requestStatus === "fulfilled"){        
+            navigate(-1)
         }
+        })
     }
     }
     return<>
@@ -77,7 +64,7 @@ function UserDetails(){
             <div className='text-center p-2'>
 
             <Button onClick={()=> navigate(`/edit-user/${id}`)} className='btn btn-success  w-100'>Edit</Button>
-            <Button disabled={processing} onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>{processing ? <div className="text-center">
+            <Button disabled={loading} onClick={()=> handleDelete()} className='btn btn-danger mt-2 w-100'>{loading ? <div className="text-center">
                             <div class="spinner-border" role="status">
                              <span class="visually-hidden">Loading...</span>
                             </div>
