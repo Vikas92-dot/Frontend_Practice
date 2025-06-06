@@ -1,7 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom';
-import Form from './Components/Form';
 import UserTable from './Components/UserTable';
 import SignUpForm from './Components/SignupForm';
+import Form from './Form';
 
 const router = createBrowserRouter([
     {
@@ -10,7 +10,11 @@ const router = createBrowserRouter([
     },
     {
         path:'/form/:index',
-        element:<SignUpForm/>
+        element:<Form/>
+    },
+    {
+        path:'/form',
+        element:<Form/>
     }
-])
+]);
 export default router;

@@ -170,7 +170,7 @@ useEffect(() => {
                   
            {/* Wrap Div */}
 
-           <p style={{position:"absolute",width:"141px",height:"24px",top:"481px",left:"50px",font:"Roboto Mono",fontWeight:"400px",color:"#7BF762",fontSize:"18px",width:"100%"}}>Wrap drive:</p>
+           <p style={{position:"absolute",width:"141px",height:"24px",top:"481px",left:"50px",font:"Roboto Mono",fontWeight:"400px",color:"#7BF762",fontSize:"18px"}}>Wrap drive:</p>
 
             <div className={isClick.warp === "NO" ? "warp-1-clicked" : "warp-1-notClicked"} onClick={()=>{ handleWarp("NO")}}>
 
@@ -187,7 +187,7 @@ useEffect(() => {
             </div>
 
           {/* Option Package */}
-           <p style={{position:"absolute",width:"141px",height:"24px",top:"615px",left:"50px",font:"Roboto Mono",fontWeight:"400px",color:"#7BF762",fontSize:"18px",width:"100%"}}>Select option package:</p>
+           <p style={{position:"absolute",height:"24px",top:"615px",left:"50px",font:"Roboto Mono",fontWeight:"400px",color:"#7BF762",fontSize:"18px",width:"100%"}}>Select option package:</p>
 
             <div className={isClick.type === "basic" ? "package-1-clicked" : "package-1-notClicked"} onClick={()=>{handlePackage('basic')}}>
 

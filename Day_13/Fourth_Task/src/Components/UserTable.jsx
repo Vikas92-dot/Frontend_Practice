@@ -36,7 +36,7 @@ function UserTable(){
     return<>
         <div className="container">
             <h2 className="bg-warning p-2" style={{position:"absolute",borderRadius:"5px",left:"45%",top:"1rem",boxShadow:"5px 5px 5px grey"}}>Users List</h2>
-                <button className="btn btn-primary" style={{position:"absolute",top:"2rem", left:"80%"}} onClick={()=> navigate(`/form/${null}`)}>Add User</button>
+                <button className="btn btn-primary" style={{position:"absolute",top:"2rem", left:"80%"}} onClick={()=> navigate(`/form`)}>Add User</button>
                 <table className="table table-bordered table-hover text-center" style={{position:"absolute",top:"6rem",width:"80%",left:"10%",boxShadow:"10px 10px 10px 10px grey"}}>
                     <thead className="table-dark">
                         <tr>

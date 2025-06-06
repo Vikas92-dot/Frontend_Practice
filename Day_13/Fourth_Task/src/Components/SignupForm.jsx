@@ -36,7 +36,7 @@ function SignUpForm(){
         const user = userData[index];
             console.log(user);
             
-        if(user){   
+        if(user){
             setData(user)
             setEditingId(index);
         }

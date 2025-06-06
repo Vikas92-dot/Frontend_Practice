@@ -26,7 +26,6 @@ function Login(){
                 email: values.email,
                 password: values.password
             }
-        
                 
             dispatch(login(body)).then((response)=>{
                  setSubmitting(false);  

@@ -1,5 +1,5 @@
 import React from 'react';
-import UserItem from './UserItem';
+import UserItem from './userItem';
 
 function UserList({ users, onRemoveUser }) {
     return (

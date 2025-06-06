@@ -55,9 +55,10 @@ export const update = createAsyncThunk('user/update',
       try {
           const response = await userService.update(id,body);
           console.log("API response:",response.data.data);      
-          return response.data.user;
+          return response.data.data;
       } catch (error) {
         console.log(error);
+        console.log("API nahi chali");
         
         return rejectWithValue(error.response.data.message || "Something went wrong");
       }
@@ -139,7 +140,6 @@ const userSlice = createSlice({
                 state.error = action.payload || 'Something went wrong';
                 toast.error(action.payload?.message || 'Something went wrong');
             })
-
     }
 })
 

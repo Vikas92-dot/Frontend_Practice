@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import UserTable from "./UserTable";
 import {toast, ToastContainer} from 'react-toastify';
-import backgroundImage from '../assets/back2.jpg'
 import { useNavigate } from "react-router-dom";
 
 
@@ -19,11 +17,23 @@ function SignUpForm(){
     const [storedData, setStoredData] = useState([]);
     const [editingId, setEditingId] = useState(null);
     const navigate = useNavigate();
+    
 
 
     const validateEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
+
+    useEffect(()=>{
+                 
+        const stringData = localStorage.getItem("UserData");
+        const userData = JSON.parse(stringData) || [];
+        console.log("Data:",userData);
+        
+        setStoredData(userData);
+        console.log("Stored data:",storedData);
+        
+    },[])
 
     const handleChange=(e)=>{
         
@@ -67,11 +77,7 @@ function SignUpForm(){
         if(!description.trim()){
             return toast.error("Description is required.");
         }
-        
-        // const convertedData = JSON.stringify(data);
-        // console.log(convertedData);
-        // localStorage.setItem("UserData",convertedData);
-        //sessionStorage.setItem("sessionData",convertedData)
+
         
         if(editingId !== null){
             const updatedData = [...storedData];
@@ -90,7 +96,6 @@ function SignUpForm(){
             const convertedData = JSON.stringify(updatedData);
             localStorage.setItem("UserData",convertedData);
             setStoredData(updatedData);
-            //alert("Data Saved Successfully..");
             toast.success("Data Saved Successfully");
             setTimeout(()=>{
                 navigate('/');
@@ -106,27 +111,9 @@ function SignUpForm(){
             description: "",
         });
     }
-    useEffect(()=>{
-        //Local Storage
-        // const stringData = localStorage.getItem("UserData");
-        // const userData = JSON.parse(stringData);
-        // console.log(userData);
-        // setData(userData)   
-         
-        const stringData = localStorage.getItem("UserData");
-        const userData = JSON.parse(stringData) || [];
-        setStoredData(userData);
-        //setData(userData[userData.length-1]);
-
-         //Session Storage
-        //  const stringData = sessionStorage.getItem("sessionData");
-        // const userData = JSON.parse(stringData);
-        // console.log(userData);
-        // setData(userData)
-        
-    },[])
+    
     return<>
-        <div className="container" style={{backgroundImage:`url(${backgroundImage})`}}>
+        <div className="container">
             <ToastContainer />
             <button style={{
             position: "absolute",
@@ -167,6 +154,7 @@ function SignUpForm(){
                             <strong style={{color:"white"}}>Choose hobbies</strong>
                             <div className="form-check">
                                     
+                                    
                                     <input checked={data.hobbies.filter(h=>{return h === "cricket"})[0] === "cricket"} onChange={handleChange} name="hobbies" value="cricket" type="checkbox" className="form-check-input"/><label  className="form-check-label" style={{color:"white"}} for="radio1">Cricket</label>
                             </div>
                             <div className="form-check">
@@ -200,7 +188,6 @@ function SignUpForm(){
             
             </div>
         </div>
-        {/* <UserTable storedData={storedData} handleEdit={handleEdit} editingId={editingId} handleDelete={handleDelete} data={data} handleChange={handleChange} handleSubmit={handleSubmit}/> */}
     </>
 }
 export default SignUpForm;

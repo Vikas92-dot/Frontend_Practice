@@ -1,5 +1,3 @@
-//App.js
-
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsersAsync, addUser, removeUser } from './redux-config/userSlice';
@@ -24,6 +22,9 @@ function App() {
   const handleRemoveUser = (id) => {
     dispatch(removeUser(id));
   };
+  const handleReload =()=>{
+    dispatch(fetchUsersAsync());
+  }
 
   return (
     <div>
@@ -36,6 +37,7 @@ function App() {
         placeholder="Enter new user name"
       />
       <button onClick={handleAddUser}>Add User</button>
+      <button onClick={handleReload}>Reload</button>
       <UserList users={users} onRemoveUser={handleRemoveUser} />
     </div>
   );

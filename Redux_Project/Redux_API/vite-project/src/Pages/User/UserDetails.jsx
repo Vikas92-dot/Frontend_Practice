@@ -14,7 +14,6 @@ function UserDetails(){
     const{id} = useParams();
     const[userData, setUserData] = useState({name:'',email:''});
     const navigate = useNavigate();
-    //const [processing,setProcessing] = useState(false);
     const {userDetails,loading} = useSelector((state)=> state.user);
     const dispatch = useDispatch();
 

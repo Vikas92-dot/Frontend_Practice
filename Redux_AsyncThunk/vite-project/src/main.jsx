@@ -7,7 +7,6 @@ import store from './redux-config/Store.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-
     <App />
   </Provider>
   

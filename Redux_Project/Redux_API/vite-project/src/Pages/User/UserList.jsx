@@ -4,6 +4,7 @@ import userService from "../../Service/UserApi";
 import { Button } from "../../Components/button";
 import { useDispatch, useSelector } from "react-redux";
 import { list } from "../../features/user/userSlice";
+import { logout } from "../../features/auth/authSlice";
 
 
 function UserList(){
@@ -15,6 +16,7 @@ function UserList(){
     const userName = useSelector((state)=> state.auth.name)
     const {userList,totalRecords,loading} = useSelector((state)=> state.user);
     const dispatch = useDispatch();
+    
     
     useEffect(()=>{
         dispatch(list({page}));
@@ -39,7 +41,8 @@ function UserList(){
     }
     const handleLogOut =()=>{
         if(window.confirm("Do you want to LogOut?")){
-            localStorage.removeItem('token');
+            // localStorage.removeItem('token');
+            dispatch(logout());
             navigate('/');
         }
         

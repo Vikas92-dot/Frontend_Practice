@@ -1,0 +1,399 @@
+import { useNavigate, Link } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Button } from "../components/Button";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { loginUser } from "../features/auth/authSlice";
+import { ToastContainer } from "react-toastify";
+
+const validationSchema = Yup.object({
+  emailBox: Yup.string().email("Invalid Email").required("Email is required."),
+  pass: Yup.string().required("Password is required."),
+});
+
+const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { loading, token } = useAppSelector((state) => state.auth);
+
+  const formik = useFormik({
+    initialValues: {
+      emailBox: "",
+      pass: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const { emailBox, pass } = values;
+      const credentials = {
+        email: emailBox,
+        password: pass,
+      };
+      dispatch(loginUser(credentials)).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          navigate("/dashboard");
+        }
+      });
+    },
+  });
+
+  return (
+    <div className="box">
+      <h2>Login</h2>
+      <form onSubmit={formik.handleSubmit}>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            name="emailBox"
+            value={formik.values.emailBox}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required
+          />
+          {formik.touched.emailBox && formik.errors.emailBox && (
+            <p className="error">{formik.errors.emailBox}</p>
+          )}
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            name="pass"
+            value={formik.values.pass}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required
+          />
+          {formik.touched.pass && formik.errors.pass && (
+            <p className="error">{formik.errors.pass}</p>
+          )}
+        </div>
+        <Button type="submit" disabled={loading}>
+          {loading ? <span className="loader"></span> : "Login"}
+        </Button>
+      </form>
+      <div>
+        <p>
+          Not signed up? <Link to="/register">Sign Up</Link>
+        </p>
+        <p>
+          <Link to="/forgot-password" className="text-warning fw-bold">
+            Forgot Password?
+          </Link>
+        </p>
+      </div>
+      <ToastContainer />
+    </div>
+  );
+};
+
+export default Login;
+
+
+-------------------
+
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import authApi from './authApi';
+import { toast } from 'react-toastify';
+
+const initialState = {
+  user: null,
+  token: null,
+  loading: false,
+  error: null,
+};
+
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await authApi.loginUser(credentials);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.loading = false;
+      state.error = null;
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('userName');
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.data?.name || 'Guest';
+        state.token = action.payload.data?.token;
+        localStorage.setItem('userName', state.user);
+        localStorage.setItem('userToken', state.token);
+        toast.success('Logged in!');
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Login failed';
+        toast.error(state.error);
+      });
+  },
+});
+
+export const { logout } = authSlice.actions;
+export default authSlice.reducer;
+
+
+---------------------------
+Bhai, tumhara code mostly sahi lag raha hai — but API call nahi ho rahi hone ke kuch possible reasons ho sakte hain. Chalo step-by-step debug karte hain.
+
+---
+
+## ✅ Check 1: AxiosInstance Sahi Hai?
+
+Check karo `axiosInstance` ka base URL sahi hai ya nahi.
+
+**`Helper/AxiosInstance.js`** file me kuch aisa hona chahiye:
+
+```js
+import axios from 'axios';
+
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:5000/api',  // ✅ check karo ye sahi hai kya
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default axiosInstance;
+```
+
+⚠️ Agar `baseURL` galat hai ya API server chal nahi raha, toh request jayegi hi nahi.
+
+---
+
+## ✅ Check 2: `apiPath.auth.LOGIN` Value Sahi Hai?
+
+Tum login API ko call kar rahe ho yahan:
+
+```js
+const response = await axiosInstance.post(apiPath.auth.LOGIN, body);
+```
+
+Check karo `apiPath.auth.LOGIN` me kya value hai:
+
+```js
+// apiPath.js
+const apiPath = {
+  auth: {
+    LOGIN: '/auth/login', // ✅ Yeh sahi hona chahiye (endpoint)
+  }
+};
+
+export default apiPath;
+```
+
+⚠️ Agar yeh empty string, `undefined` ya wrong path hua, toh API call fail ho jayegi.
+
+---
+
+## ✅ Check 3: API Server Chal Raha Hai?
+
+Ensure karo tumhara **backend server chal raha ho**, aur CORS properly configure ho.
+
+### Terminal me yeh check karo:
+
+```bash
+npm run dev  # (agar backend me nodemon use kar rahe ho)
+```
+
+Agar backend band hai toh request jayegi hi nahi.
+
+---
+
+## ✅ Check 4: Devtools Console Me Kya Error Aa Raha Hai?
+
+Browser ke **console (F12)** me dekh ke error note karo. Aam errors:
+
+* **Network Error**
+* **404 Not Found**
+* **CORS Error**
+* **500 Internal Server Error**
+
+Agar kuch aisa dikhe toh mujhe batao, main uss hisaab se help karunga.
+
+---
+
+## ✅ Check 5: Try Logging Directly
+
+Try karo `axiosInstance.post()` ko form submit ke alawa directly call karke dekhna:
+
+```js
+useEffect(() => {
+  const testLogin = async () => {
+    try {
+      const res = await axiosInstance.post('/auth/login', {
+        email: 'test@example.com',
+        password: '123456',
+      });
+      console.log('Test login response:', res);
+    } catch (err) {
+      console.log('Test login error:', err);
+    }
+  };
+
+  testLogin();
+}, []);
+```
+
+Agar yeh bhi fail ho gaya, toh API path ya server down hoga.
+
+---
+
+## ✅ Extra: `password` pe `.number()` Na Karo
+
+Tumne `Yup.number()` use kiya hai password ke liye, jabki password mostly **string** hi hota hai.
+
+Replace this:
+
+```js
+password: Yup.number().required("Password is required.")
+```
+
+With:
+
+```js
+password: Yup.string().required("Password is required.")
+```
+
+Varna form kabhi submit nahi hoga agar password me special character ya `0` start ho.
+
+---
+
+## Final Suggestion:
+
+Sab check karne ke baad bhi issue hai toh mujhe:
+
+1. `axiosInstance.js` ka code bhejo
+2. `apiPath.js` ka code bhejo
+3. Console me jo error dikh raha uska screenshot ya message bhejo
+
+---
+
+Main turant batata hoon kya fix karna hai.
+
+
+------------------------------------
+
+Bhai, problem tumhare `axiosInstance.js` file ke **interceptor** me hai. Tum yeh galti kar rahe ho:
+
+```js
+const {token} = useSelector((state)=> state.auth);
+```
+
+⚠️ **`useSelector` React hook hai — isko component ke andar hi use kar sakte hain, Axios config ya JS file ke andar nahi!**
+Isliye error aa raha:
+
+> `TypeError: Cannot read properties of undefined (reading 'status')`
+> and
+> `Cannot read properties of undefined (reading 'token')`
+
+---
+
+## ✅ **Solution**
+
+### 🔁 Step 1: Get token from `localStorage` instead of `useSelector`
+
+Because Axios config is not in a component, you should use `localStorage.getItem()`:
+
+```js
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token'); 
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`; 
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error); 
+  }
+);
+```
+
+### 🔁 Step 2: Save token to localStorage inside `authSlice.jsx`
+
+Go to your `login.fulfilled` in `authSlice`:
+
+```js
+.addCase(login.fulfilled, (state, action) => {
+    state.loading = false;
+    state.user = action.payload.data?.name;
+    state.token = action.payload.data?.token;
+
+    // ✅ Save to localStorage for future requests
+    localStorage.setItem('token', state.token);
+    localStorage.setItem('name', state.user);
+
+    toast.success('Logged in!');
+})
+```
+
+---
+
+## 🔁 Optional Step: Navigate safely on auth error
+
+Yeh code kaam nahi karega because `<Navigate>` JSX hai:
+
+```js
+<Navigate to={'/'} />
+```
+
+Axios interceptors ke andar tum JavaScript chalate ho, not JSX.
+
+### ✅ Replace this:
+
+```js
+if(error.response && error.response.status === 404 || error.response.status === 401){
+  <Navigate to={'/'} />
+}
+```
+
+### With:
+
+```js
+if (error.response && (error.response.status === 404 || error.response.status === 401)) {
+  window.location.href = '/'; // ✅ this works
+}
+```
+
+---
+
+## Final Summary:
+
+### ❌ Don't use:
+
+* `useSelector` outside React component
+* JSX (`<Navigate />`) inside Axios interceptor
+
+### ✅ Do this:
+
+* Use `localStorage.getItem()` to get token in `axiosInstance`
+* Save token to `localStorage` after login
+* Use `window.location.href` to redirect from interceptor
+
+---
+
+Agar ab bhi issue aata hai, toh mujhe `console.log(error)` ka pura output bhej dena. Main exact problem pakad lunga.
+

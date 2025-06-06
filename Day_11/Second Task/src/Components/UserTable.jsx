@@ -98,10 +98,6 @@ function UserTable() {
               return toast.error("Description is required.");
           }
           
-          // const convertedData = JSON.stringify(data);
-          // console.log(convertedData);
-          // localStorage.setItem("UserData",convertedData);
-          //sessionStorage.setItem("sessionData",convertedData)
           
           if(editingId !== null){
               const updatedData = [...storedData];
@@ -121,7 +117,6 @@ function UserTable() {
               const convertedData = JSON.stringify(updatedData);
               localStorage.setItem("UserData",convertedData);
               setStoredData(updatedData);
-              //alert("Data Saved Successfully..");
               toast.success("Data Saved Successfully");
           }
           setData({
@@ -134,23 +129,10 @@ function UserTable() {
               description: "",
           });
       }
-      useEffect(()=>{
-          //Local Storage
-          // const stringData = localStorage.getItem("UserData");
-          // const userData = JSON.parse(stringData);
-          // console.log(userData);
-          // setData(userData)   
-           
+      useEffect(()=>{  
           const stringData = localStorage.getItem("UserData");
           const userData = JSON.parse(stringData) || [];
           setStoredData(userData);
-          //setData(userData[userData.length-1]);
-  
-           //Session Storage
-          //  const stringData = sessionStorage.getItem("sessionData");
-          // const userData = JSON.parse(stringData);
-          // console.log(userData);
-          // setData(userData)
           
       },[])
   return (
@@ -173,7 +155,7 @@ function UserTable() {
             top:"4rem",
             borderRadius: "5px",
             left:"83%"
-          }} className="btn btn-success" onClick={()=>navigate('/add-user')}>Add User</button>
+          }} className="btn btn-success" onClick={()=>navigate('/form')}>Add User</button>
         <table
           className="table  table-bordered table-responsive table-hover text-center"
           style={{

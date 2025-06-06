@@ -39,7 +39,7 @@ function EditUser(){
                 email: values.email,
                 password: values.password
             }
-            dispatch(update(id,body))
+            dispatch(update({id,body}))
                     .then((response)=>{
                     if(response.meta.requestStatus === "fulfilled"){  
                         setSubmitting(false);      
