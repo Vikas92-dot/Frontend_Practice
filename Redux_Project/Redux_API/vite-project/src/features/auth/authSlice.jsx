@@ -1,0 +1,106 @@
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+
+import { toast } from 'react-toastify';
+import authService from '../../Service/AuthApi';
+
+//Login
+export const login = createAsyncThunk('auth/login',
+    async(body,{rejectWithValue})=>{
+      try {
+          const response = await authService.login(body);
+          console.log("API response:",response.data.data);      
+          return response.data.data;
+      } catch (error) {
+        console.log(error);
+        
+        return rejectWithValue(error.response.data.message || "Something went wrong");
+      }
+    }
+)
+
+//Register
+export const register = createAsyncThunk('auth/register',
+    async(body,{rejectWithValue})=>{
+      try {
+          const response = await authService.register(body);
+          console.log("API response:",response.data.data);      
+          return response.data.data;
+      } catch (error) {
+        console.log(error);
+        
+        return rejectWithValue(error.response.data.message || "Something went wrong");
+      
+      }
+    }
+)
+
+
+const authSlice = createSlice({
+  name:'auth', 
+  initialState:{
+    userId:null,
+    emailToken:null,
+    name: null,
+    token: null,
+    loading: false,
+    error: null,
+    isLoggedIn: false
+  },
+  reducers:{
+    logout: (state) => {
+      state.name = null;
+      state.token = null;
+      state.loading = false;
+      state.error = null;
+      state.isLoggedIn = false;
+    },
+  },
+  extraReducers:(builder)=>{
+    builder
+      //Login
+      .addCase(login.pending, (state)=>{
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state,action)=>{
+        state.loading = false;
+        state.name = action.payload.name;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        localStorage.setItem('token', state.token);
+        localStorage.setItem('name', state.name);
+        toast.success('Logged in!');
+      })
+      .addCase(login.rejected, (state,action)=>{
+        state.loading = false;
+        state.error = action.payload || 'Login failed';
+        toast.error(action.payload?.message || 'Login failed');
+      })
+
+      //register
+
+      .addCase(register.pending, (state)=>{
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state,action)=>{
+        state.loading = false;
+        state.emailToken = action.payload.emailVerificationTOken;
+        state.userId = action.payload.id;      
+        localStorage.setItem('emailToken', state.emailToken);
+        localStorage.setItem('userId', state.userId);
+        toast.success('Registration successfully!');
+      })
+      .addCase(register.rejected, (state,action)=>{
+        state.loading = false;
+        state.error = action.payload || 'Registration failed';
+        toast.error(action.payload?.message || 'Registration failed');
+      })
+
+
+
+
+
+  }
+})
+export default authSlice.reducer;
