@@ -1,10 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useState } from "react";
-import authService from "../../Service/AuthApi";
 import { Button } from "../../Components/button";
-import { emailVerification } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import authThunk from "../../features/auth/authThunk";
 
 
 
@@ -20,7 +18,7 @@ function VerifyEmail(){
     const handleSubmit = async (e)=>{ 
         e.preventDefault();
         setProcessing(true);
-         dispatch(emailVerification({emailVerificationTOken,id}))
+         dispatch(authThunk.emailVerification({emailVerificationTOken,id}))
                 .then((response)=>{
                     setProcessing(false);  
                 if(response.meta.requestStatus === "fulfilled"){

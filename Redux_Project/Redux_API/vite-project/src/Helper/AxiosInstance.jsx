@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 
 const baseURL = import.meta.env.VITE_API_URL;
@@ -13,6 +14,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token'); 
+    //const token = useSelector((state)=> state.auth)
+    
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; 
     }

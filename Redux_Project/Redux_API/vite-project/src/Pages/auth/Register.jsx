@@ -1,12 +1,10 @@
 import { useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
-import {toast} from 'react-toastify';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import authService from "../../Service/AuthApi";
 import { Button } from "../../Components/button";
-import { register } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import authThunk from "../../features/auth/authThunk";
 
 
 
@@ -32,7 +30,7 @@ function Register(){
                 email: values.email,
                 password: values.password
             }
-             dispatch(register(body)).then((response)=>{
+             dispatch(authThunk.register(body)).then((response)=>{
                  setSubmitting(false);  
                 if(response.meta.requestStatus === "fulfilled"){
                                 
@@ -60,7 +58,8 @@ function Register(){
                         onBlur={formik.handleBlur} 
                         className="form-control mb-2" 
                         type="text" 
-                        placeholder="Enter your Name"/>
+                        placeholder="Enter your Name"
+                        />
                         {formik.touched.name && formik.errors.name && (
                           <div className="text-danger">{formik.errors.name}</div>
                         ) }
@@ -85,7 +84,8 @@ function Register(){
                         onBlur={formik.handleBlur}
                         className="form-control" 
                         type="password" 
-                        placeholder="Enter your Password"/>
+                        placeholder="Enter your Password"
+                        autoComplete="new-password"/>
                         {formik.touched.password && formik.errors.password && (
                           <div className="text-danger">{formik.errors.password}</div>
                         ) }

@@ -1,12 +1,11 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as Yup from 'yup';
-import userService from "../../Service/UserApi";
 import { Button } from "../../Components/button";
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "../../features/user/userSlice";
+import userThunk from "../../features/user/userThunk";
+
 
 
 
@@ -39,7 +38,7 @@ function EditUser(){
                 email: values.email,
                 password: values.password
             }
-            dispatch(update({id,body}))
+            dispatch(userThunk.update({id,body}))
                     .then((response)=>{
                     if(response.meta.requestStatus === "fulfilled"){  
                         setSubmitting(false);      

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import userService from "../../Service/UserApi";
 import { Button } from "../../Components/button";
 import { useDispatch, useSelector } from "react-redux";
-import { list } from "../../features/user/userSlice";
 import { logout } from "../../features/auth/authSlice";
+import userThunk from "../../features/user/userThunk";
 
 
 function UserList(){
@@ -19,7 +18,7 @@ function UserList(){
     
     
     useEffect(()=>{
-        dispatch(list({page}));
+        dispatch(userThunk.list({page}));
     },[page,dispatch]);
 
     useEffect(() => {
@@ -41,7 +40,6 @@ function UserList(){
     }
     const handleLogOut =()=>{
         if(window.confirm("Do you want to LogOut?")){
-            // localStorage.removeItem('token');
             dispatch(logout());
             navigate('/');
         }
@@ -53,7 +51,7 @@ function UserList(){
              <h2 className="text-center p-2 bg-info fw-bold text-bold" style={{borderRadius:"5px",border:"1px solid black"}}>Users List</h2>
                  <h4 className='mt-2 text-white text-center fw-bold p-2 bg-secondary' style={{position:"relative",left:"11%", border:"1px solid black",width:"15rem",borderRadius:"10px"}}>Hello, {userName} </h4>
              
-             <Button onClick={()=> handleLogOut()} className="btn btn-danger fw-bold" style={{width:"6rem",position:"absolute",top:"2%",left:"92%"}}>Log Out</Button>
+             <Button onClick={()=> handleLogOut()} className="btn btn-danger fw-bold" style={{width:"6rem",position:"absolute",top:"2%",left:"85%"}}>Log Out</Button>
 
              {loading 
                 ?   <div className="text-center">
