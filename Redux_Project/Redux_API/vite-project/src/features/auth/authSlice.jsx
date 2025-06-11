@@ -43,7 +43,7 @@ const authSlice = createSlice({
       .addCase(authThunk.login.rejected, (state,action)=>{
         state.loading = false;
         state.error = action.payload || 'Login failed';
-        toast.error(action.payload?.message || 'Login failed');
+        toast.error(state.error || 'Login failed');
       })
 
       //register
@@ -62,7 +62,7 @@ const authSlice = createSlice({
       .addCase(authThunk.register.rejected, (state,action)=>{
         state.loading = false;
         state.error = action.payload || 'Registration failed';
-        toast.error(action.payload?.message || 'Registration failed');
+        toast.error(state.error || 'Registration failed');
       })
 
       //Email Verification
@@ -80,7 +80,7 @@ const authSlice = createSlice({
       .addCase(authThunk.emailVerification.rejected, (state,action)=>{
         state.loading = false;
         state.error = action.payload || 'Verification failed';
-        toast.error(action.payload?.message || 'Verification failed');
+        toast.error(state.error || 'Verification failed');
       })
 
       //Forgot Password
@@ -95,7 +95,7 @@ const authSlice = createSlice({
       .addCase(authThunk.forgotPassword.rejected, (state,action)=>{
         state.loading = false;
         state.error = action.payload || 'Link not sent';
-        toast.error(action.payload?.message || 'Link not sent');
+        toast.error(state.error || 'Link not sent');
       })
 
       //Reset Password
@@ -110,7 +110,7 @@ const authSlice = createSlice({
       .addCase(authThunk.resetPassword.rejected, (state,action)=>{
         state.loading = false;
         state.error = action.payload || 'Something went wrong';
-        toast.error(action.payload?.message || 'Something went wrong');
+        toast.error(state.error || 'Something went wrong');
       })
   }
 })

@@ -29,7 +29,7 @@ const userSlice = createSlice({
             .addCase(userThunk.list.rejected, (state,action)=>{
                 state.loading = false;
                 state.error = action.payload || 'Something went wrong';
-                toast.error(action.payload?.message || 'Something went wrong');
+                toast.error(state.error || 'Something went wrong');
             })
 
             //Details
@@ -45,7 +45,7 @@ const userSlice = createSlice({
             .addCase(userThunk.show.rejected, (state,action)=>{
                 state.loading = false;
                 state.error = action.payload || 'Something went wrong';
-                toast.error(action.payload?.message || 'Something went wrong');
+                toast.error(state.error || 'Something went wrong');
             })
 
             //Delete User
@@ -61,7 +61,7 @@ const userSlice = createSlice({
             .addCase(userThunk.deleteUser.rejected, (state,action)=>{
                 state.loading = false;
                 state.error = action.payload || 'Something went wrong';
-                toast.error(action.payload?.message || 'Something went wrong');
+                toast.error(state.error || 'Something went wrong');
             })
 
             //Update User
@@ -77,7 +77,7 @@ const userSlice = createSlice({
             .addCase(userThunk.update.rejected, (state,action)=>{
                 state.loading = false;
                 state.error = action.payload || 'Something went wrong';
-                toast.error(action.payload?.message || 'Something went wrong');
+                toast.error(state.error || 'Something went wrong');
             })
     }
 })
