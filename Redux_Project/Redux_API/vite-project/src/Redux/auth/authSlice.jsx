@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 import { toast } from 'react-toastify';
-import authThunk from './authThunk';
+import authThunk from './authThunk'
 
 const authSlice = createSlice({
   name:'auth', 

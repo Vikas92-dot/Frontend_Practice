@@ -4,7 +4,9 @@ import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import { Button } from "../../Components/button";
 import { useDispatch } from "react-redux";
-import authThunk from "../../features/auth/authThunk";
+import authThunk from "../../Redux/auth/authThunk";
+import { Input } from "../../Components/Input";
+import { RegisterUI } from "../../features/authFeatures/RegisterUI";
 
 
 
@@ -45,13 +47,13 @@ function Register(){
     })
     
     return<>
-        <div className="container justify-content-center align-item-center d-flex">
+        {/* <div className="container justify-content-center align-item-center d-flex">
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgb(255, 217, 79))"}}>
                 <h4 className="text-center p-2 text-white bg-primary" style={{width:"100%",height:"50px",borderRadius:"5px"}}>Registration Form</h4>
                 <form onSubmit={formik.handleSubmit} >
                     <div className="form-group p-2">
                         <label className="form-label">Name</label>
-                        <input 
+                        <Input 
                         name="name" 
                         value={formik.values.name} 
                         onChange={formik.handleChange}
@@ -65,7 +67,7 @@ function Register(){
                         ) }
 
                         <label className="form-label">Email</label>
-                        <input name="email"
+                        <Input name="email"
                         value={formik.values.email} 
                         onChange={formik.handleChange} 
                         onBlur={formik.handleBlur}
@@ -77,7 +79,7 @@ function Register(){
                         ) }
 
                         <label className="form-label">Password</label>
-                        <input 
+                        <Input 
                         name="password" 
                         value={formik.values.password} 
                         onChange={formik.handleChange} 
@@ -106,7 +108,8 @@ function Register(){
                         </Link>
                     </p>
             </div>
-        </div>
+        </div> */}
+        <RegisterUI formik={formik}/>
     </>
 }
 export default Register;

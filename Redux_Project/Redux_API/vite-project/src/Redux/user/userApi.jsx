@@ -3,8 +3,8 @@ import apiPath from "../../Service/apiPath";
 
 
 //User List
-const list =({page})=>{
-    const users = axiosInstance.get(`${apiPath.user.USER_LIST}?pageNumber=${page}&pageSize=20`);
+const list =({page,size})=>{
+    const users = axiosInstance.get(`${apiPath.user.USER_LIST}?pageNumber=${page}&pageSize=${size}`);
     return users;
 }
 

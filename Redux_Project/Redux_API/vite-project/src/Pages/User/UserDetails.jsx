@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../Components/button';
 import { useDispatch, useSelector } from 'react-redux';
-import userThunk from '../../features/user/userThunk';
+import userThunk from '../../Redux/user/userThunk';
+import { UserDetailsUI } from '../../features/userFeatures/UserDetailsUI';
 
 
 
@@ -34,7 +35,7 @@ function UserDetails(){
     }
     }
     return<>
-        <Button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</Button>
+        {/* <Button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</Button>
         <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem",background: "linear-gradient(to bottom, #FFF8E1,rgb(243, 255, 79))"}}>
             <h2 className='text-center mt-2' >User Details</h2>
         
@@ -67,7 +68,8 @@ function UserDetails(){
                             </div>
                           </div> : "Delete"}</Button>
             </div>
-        </div>
+        </div> */}
+        <UserDetailsUI navigate={navigate} image={image} loading={loading} userData={userData} id={id} handleDelete={handleDelete}  />
     </>
 }
 export default UserDetails;
