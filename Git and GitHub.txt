@@ -259,3 +259,460 @@ Code
     git diff main origin/main
 This should provide a good foundation for practicing git pull, git fetch, and git merge. You can create more branches and experiment with different scenarios to improve your understanding.
 
+
+-------------------------------------------------
+**git fetch- just to check are there any changes available.
+**git pull- downloading latest changes
+
+=============
+
+Sure! The `git reset` command is used to undo changes in your Git working directory and staging area. Here's a basic example to help you understand how it works:
+
+---
+
+### 🔧 **Example Scenario**
+
+You have 3 commits in your Git history:
+
+```
+A - B - C (HEAD)
+```
+
+Now, suppose you want to reset your branch to commit `B`.
+
+---
+
+### ✅ **Command:**
+
+```bash
+git reset --hard <commit-id>
+```
+
+or using relative HEAD:
+
+```bash
+git reset --hard HEAD~1
+```
+
+This will:
+
+* Move `HEAD` and branch pointer one commit back.
+* Delete commit `C`.
+* Remove changes of commit `C` from the working directory and staging area.
+
+---
+
+### 🔍 Example:
+
+```bash
+git log --oneline
+# output:
+# 3f8c1c3 (HEAD -> main) Added feature C
+# a1b2c3d Added feature B
+# 9e8a7f6 Initial commit
+
+git reset --hard HEAD~1
+```
+
+Now the latest commit is:
+
+```
+a1b2c3d Added feature B
+```
+
+---
+
+### 🛠 Variants:
+
+#### 1. **Soft Reset** (keeps changes in staging):
+
+```bash
+git reset --soft HEAD~1
+```
+
+* Removes last commit but keeps changes in staging (`git add`).
+
+#### 2. **Mixed Reset** (default, keeps changes in working dir but unstages them):
+
+```bash
+git reset HEAD~1
+```
+
+---
+
+Let me know if you want a visual example or real-time practice steps!
+
+--------------
+
+Great! Let's do a real-time hands-on practice of `git reset` step by step. You can follow these steps in any local Git repo (or create a new one). We'll create 3 commits and then use `reset`.
+
+---
+
+### ✅ **Step-by-Step Practice:**
+
+#### 🧱 **Step 1: Create a new Git repo**
+
+```bash
+mkdir reset-practice
+cd reset-practice
+git init
+```
+
+#### 📄 **Step 2: Create and commit file1**
+
+```bash
+echo "This is file1" > file1.txt
+git add file1.txt
+git commit -m "Add file1"
+```
+
+#### 📄 **Step 3: Create and commit file2**
+
+```bash
+echo "This is file2" > file2.txt
+git add file2.txt
+git commit -m "Add file2"
+```
+
+#### 📄 **Step 4: Create and commit file3**
+
+```bash
+echo "This is file3" > file3.txt
+git add file3.txt
+git commit -m "Add file3"
+```
+
+#### 🔍 **Step 5: Check commit history**
+
+```bash
+git log --oneline
+```
+
+You will see something like:
+
+```
+d3c3c99 (HEAD -> main) Add file3
+7b2c1c4 Add file2
+a8e5f89 Add file1
+```
+
+---
+
+### 🔄 **Step 6: Use `git reset`**
+
+#### 🧹 Option 1: Hard Reset (removes commit & changes)
+
+```bash
+git reset --hard HEAD~1
+```
+
+Now check:
+
+```bash
+git log --oneline
+ls
+```
+
+* `file3.txt` is gone
+* Last commit is `Add file2`
+
+---
+
+#### 🔄 Option 2: Soft Reset (keeps changes in staging)
+
+```bash
+git reset --soft HEAD~1
+```
+
+Now check:
+
+```bash
+git status
+```
+
+* You’ll see `file3.txt` is still staged, but the commit is gone.
+
+---
+
+#### 🔄 Option 3: Mixed Reset (keeps changes in working dir but unstages them)
+
+```bash
+git reset HEAD~1
+```
+
+Now check:
+
+```bash
+git status
+```
+
+* `file3.txt` is modified but **unstaged**.
+
+---
+
+------------------------------------------GIT STASH----------------------
+
+Bilkul bhai! `git stash` ek **temporary storage** jaisa hota hai — jab aapke working directory me kuch changes hote hain aur aap unhe commit nahi karna chahte, lekin branch switch karna hai ya kuch aur kaam karna hai, tab aap un changes ko stash me rakh sakte ho.
+
+---
+
+## 🔄 Real-Time Practice of `git stash`
+
+Chalo step-by-step ek example karte hain.
+
+---
+
+### ✅ **Step 1: Naya repo banao ya kisi existing repo me jao**
+
+```bash
+mkdir stash-practice
+cd stash-practice
+git init
+```
+
+---
+
+### 📄 **Step 2: File banao aur commit karo**
+
+```bash
+echo "Initial content" > notes.txt
+git add notes.txt
+git commit -m "Initial commit"
+```
+
+---
+
+### 🖊️ **Step 3: Kuch changes karo (but don't commit)**
+
+```bash
+echo "Temporary work in progress" >> notes.txt
+```
+
+Check current status:
+
+```bash
+git status
+```
+
+> Output me dikhega: `modified: notes.txt`
+
+---
+
+### 🧳 **Step 4: Stash the changes**
+
+```bash
+git stash
+```
+
+Ab check karo:
+
+```bash
+git status
+```
+
+> Output me bolega: `working tree clean`
+> Matlab tumhare changes stash me chali gayi hain, aur file original form me aa gayi.
+
+---
+
+### 👀 **Step 5: Dekho stash list**
+
+```bash
+git stash list
+```
+
+> Output:
+
+```
+stash@{0}: WIP on main: <your last commit message>
+```
+
+---
+
+### 🔄 **Step 6: Wapas changes apply karo**
+
+```bash
+git stash apply
+```
+
+> Ab `notes.txt` me phir se wahi changes aa gaye hain.
+
+Ya agar tum stash hata ke apply karna chahte ho:
+
+```bash
+git stash pop
+```
+
+> Ye changes wapas karega aur stash list se hata dega.
+
+---
+
+### 🗑️ **(Optional) Stash delete karna**
+
+```bash
+git stash drop stash@{0}
+```
+
+Ya sabhi stash delete karne ke liye:
+
+```bash
+git stash clear
+```
+
+---
+
+### 🔁 Recap of Useful `git stash` Commands:
+
+| Command           | Use                              |
+| ----------------- | -------------------------------- |
+| `git stash`       | Save current changes temporarily |
+| `git stash list`  | Show all stashed changes         |
+| `git stash apply` | Apply stash but keep in list     |
+| `git stash pop`   | Apply stash and remove from list |
+| `git stash drop`  | Delete a specific stash          |
+| `git stash clear` | Clear all stashed changes        |
+
+---
+
+Agar chahe to mai tumhe ek **interactive quiz** ya aur advance stash example (multiple stashes, stash with name, stash specific files) bhi karwa sakta hoon. Batana!
+
+
+---------------------
+
+Tumne `git pull` command chalaya hai, aur ab **merge commit message screen (Vim editor)** open ho gaya hai. Ye tab hota hai jab local aur remote dono branches me alag commits hote hain, aur Git inhe **auto-merge** karta hai.
+
+---
+
+## ✅ **Ab kya karna hai (Exit from Vim after writing the merge commit)**
+
+### 🖊️ Step 1: Agar message likhna chahte ho:
+
+Tum yahan merge commit message likh sakte ho (ya as-it-is chhod sakte ho).
+
+Jaise:
+
+```text
+Merge remote-tracking branch 'origin/main'
+```
+
+---
+
+### ⌨️ Step 2: Vim se bahar kaise nikle (commit save karke)
+
+#### Follow these keys:
+
+1. **Press `Esc`** (to exit insert mode)
+2. **Type `:wq`** (write and quit)
+3. **Press `Enter`**
+
+> `:wq` ka matlab hai "write (save) and quit"
+
+---
+
+### 📛 Agar cancel karna chahte ho (commit nahi karna):
+
+1. Press `Esc`
+2. Type `:q!` (force quit without saving)
+3. Press `Enter`
+
+---
+
+### 🔁 Next Time Isko Avoid Karna Hai?
+
+Agar tum bina merge message ke pull karna chahte ho, to use karo:
+
+```bash
+git pull --no-edit
+```
+
+---
+
+Bhai agar tu chaahe to main tujhe `git pull`, `merge conflict`, aur `vim` editor ke shortcuts ka cheat sheet bhi de sakta hoon. Batao chahiye kya?
+
+==========================================================================================================
+
+Perfect bhai! Yahaan maine tumhare liye ek **Git Pull + Merge + Vim Editor Cheat Sheet** bana diya hai — short, simple aur real-world use ke liye 💡
+
+---
+
+## 🧲 **Git Pull + Merge Basics**
+
+### 🔹 1. `git pull`
+
+```bash
+git pull
+```
+
+* Remote repository se latest changes laata hai.
+* Agar dono branches me alag commits hote hain, to **merge** karta hai.
+
+---
+
+### 🔹 2. Auto Merge ke Time Vim Editor khul jaata hai
+
+* Ye message likhne ko kehta hai: *"Why are you merging?"*
+* Default message hota hai (change bhi kar sakte ho ya aise hi chhod sakte ho).
+
+---
+
+## ⚙️ **Vim Editor Commands** (bahar nikalne ke liye)
+
+| Action                  | Command         | Description                                |
+| ----------------------- | --------------- | ------------------------------------------ |
+| 📝 **Insert mode**      | `i`             | Typing start karne ke liye                 |
+| 🔚 **Stop typing**      | `Esc`           | Insert mode se normal mode me aane ke liye |
+| 💾 **Save & Quit**      | `:wq` + `Enter` | Save & exit                                |
+| ❌ **Quit without save** | `:q!` + `Enter` | Exit bina changes ke                       |
+| 📖 **Only save**        | `:w` + `Enter`  | File save karo, par vim open rahe          |
+
+---
+
+## 🧰 **Useful Git Pull Options**
+
+| Command                   | Use Case                                  |
+| ------------------------- | ----------------------------------------- |
+| `git pull --no-edit`      | Merge message prompt ko skip karta hai    |
+| `git pull --rebase`       | Rebase instead of merge (cleaner history) |
+| `git fetch` + `git merge` | Pull ke steps manually karne ke liye      |
+
+---
+
+## 💥 Bonus: Merge Conflict Tips
+
+Agar `git pull` karte waqt **conflict** aa gaya to:
+
+1. Git mark kar dega conflict areas:
+
+   ```text
+   <<<<<<< HEAD
+   your changes
+   =======
+   incoming changes
+   >>>>>>> origin/main
+   ```
+
+2. Manually file edit karo, fir:
+
+   ```bash
+   git add conflicted-file.txt
+   git commit
+   ```
+
+---
+
+## 📌 Vim Editor Ko Default Se Hatana (Optional)
+
+Agar tum Vim se pareshan ho, to Git ka editor VS Code set kar lo:
+
+```bash
+git config --global core.editor "code --wait"
+```
+
+Ab merge message VS Code me open hoga 🙌
+
+---
+
+Bhai agar tu chaahe to mai tujhe **Git practice task list** bhi de sakta hoon jaise stash, pull, merge conflict, branch, revert, reset — real-time kaam jaisa. Chahiye?
+
+
+

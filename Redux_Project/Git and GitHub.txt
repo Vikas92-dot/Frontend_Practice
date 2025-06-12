@@ -1,2 +1,261 @@
 **Git**
 	-Git is a popular version control system.
+
+It is used for:
+
+Tracking code changes
+Tracking who made changes
+Coding collaboration
+
+
+Key Git Concepts
+
+Repository: A folder where Git tracks your project and its history.
+Clone: Make a copy of a remote repository on your computer.
+Stage: Tell Git which changes you want to save next.
+Commit: Save a snapshot of your staged changes.
+Branch: Work on different versions or features at the same time.
+Merge: Combine changes from different branches.
+Pull: Get the latest changes from a remote repository.
+Push: Send your changes to a remote repository.
+
+What is an Untracked File?
+
+An untracked file is any file in your project folder that Git is not yet tracking.
+These are files you've created or copied into the folder, but haven't told Git to watch.
+
+What is a Tracked File?
+
+A tracked file is a file that Git is watching for changes.
+To make a file tracked, you need to add it to the staging area.
+
+What is the Staging Area?
+
+The staging area is like a waiting room for your changes.
+You use it to tell Git exactly which files you want to include in your next commit.
+This gives you control over what goes into your project history.
+
+What is a Commit?
+
+A commit is like a save point in your project.
+It records a snapshot of your files at a certain time, with a message describing what changed.
+
+**Write Multi-line Commit Messages**
+
+**What is Tag?
+-A tag in Git is like a label or bookmark for a specific commit.
+ Tags are most often used to mark important points in your project history, like releases (v1.0 or v2.0).
+ Tags are simple and reliable way to keep track of versions and share with your team or users.
+
+Some common tag types include:
+
+ Releases: Tags let you mark when your project is ready for release, so you (and others) can always find that exact version later.
+ Milestones: Use tags to highlight major milestones, like when a big feature is finished or a bug is fixed.
+ Deployment: Many deployment tools use tags to know which version of your code to deploy.
+ Hotfixes: If you need to fix an old version, tags make it easy to check out and patch the right code.
+
+ **Create an Annotated Tag (-a -m)
+-An annotated tag stores your name, the date, and a message.
+This is recommended for most uses.
+
+git tag -a v1.0 -m "Version 1.0 release"
+
+**push tag* git push origin v1.0
+**delete tag locally* - git tag -d v1.0
+**delete tag from the remote repo** - git push origin --delete tag v1.0
+
+**Update or Replace a Tag (Force Push)*
+
+**What is Git Stash? Why Use It?
+
+	-Sometimes you need to quickly switch tasks or fix a bug, but you're not ready to commit your work.
+	-git stash lets you save your uncommitted changes and return to a clean working directory.
+	-You can come back and restore your changes later.
+
+Here are some common use cases:
+
+Switch branches safely: Save your work before changing branches.
+Handle emergencies: Stash your work to fix something urgent, then restore it.
+Keep your work-in-progress safe: Avoid messy commits or losing changes.
+
+Save your current changes (both staged and unstaged tracked files) with:
+
+What gets stashed?
+
+Tracked files (both staged and unstaged) are stashed by default.
+Untracked files (new files not yet added to Git) are not stashed by default.
+To stash untracked files too, use git stash -u (or --include-untracked).
+
+...some points to be learn about stash...
+
+**Git History**
+
+-Git keeps a detailed record of every change made to your project.
+ You can use history commands to see what changed, when, and who made the change.
+ This is useful for tracking progress, finding bugs, and understanding your project's evolution.
+
+
+Key Commands for Viewing History
+	git log - Show full commit history - by pressing arrow key can view all commits and press q for exit.
+	git log --oneline - Show a summary of commits
+	git show <commit> - Show details of a specific commit
+	git diff - See unstaged changes
+	git diff --staged - See staged changes
+
+Make frequent, meaningful commits to keep your history clear.
+	Write clear commit messages so you and your team can understand changes later.
+	Use git log --oneline for a quick overview of your commit history.
+	Use git diff before committing to review your work.
+
+**Git Help**
+
+	-Git has many commands and options.
+	-If you forget how a command works or want to learn about its options, you can use Git's built-in help.
+
+Key Commands for Getting Help
+
+ git help <command> - See the manual page for a command
+ git <command> --help - See help for a command (same as above)
+ git <command> -h - See a quick summary of options
+ git help --all - List all possible Git commands
+ git help -g - List guides and concepts
+
+
+----------------------------------------------------------------------
+
+**what is origin in Git?
+
+-In Git, "origin" refers to the shorthand name for the primary remote repository from which your local repository was cloned. 
+ It's essentially a convenient alias for the full URL of that remote repository, making it easier to refer to when performing operations 
+ like pulling, pushing, or fetching.
+
+-In Git, "origin" is a conventional name used to refer to the default remote repository where your code is stored. 
+ It is not a reserved keyword but a naming convention that Git automatically assigns when you clone a repository. 
+ Understanding "origin" helps in managing remote connections effectively.
+
+**What is Remote Repository?
+
+-A remote repository is a version of your project hosted on the internet. 
+ GitHub is a popular platform for hosting remote repositories, enabling you to collaborate with others and back up your code.
+
+**What is SSH?
+
+-SSH (Secure Shell) is a way to connect securely to remote computers and services, like Git repositories.
+ SSH uses a pair of keys (public and private) to make sure only you can access your code.
+
+**How SSH Keys Work?
+
+-SSH keys come in pairs: a public key (like a lock) and a private key (like your own key).
+ You share the public key with the server (like GitHub or Bitbucket), but keep the private key safe on your computer.
+ Only someone with the private key can access what's locked by the public key.
+
+
+--------------------------------------------------------------------------
+
+**Git Fetch - git fetch downloads new data from a remote repository, but does not change your working files or branches. 
+	      It lets you see what others have pushed before you merge or pull.
+
+		--git fetch origin
+
+**Git Merge - merge combines the current branch, with a specified branch.
+	      We have confirmed that the updates are as expected, and we can merge our current branch (master) with origin/master:
+
+**Git Pull - pull is a combination of fetch and merge.It is used to pull all changes from a remote repository into the
+	     branch you are working on 
+
+**Git Push - When we have made changes locally, we want to update our remote repository with the changes.
+	     Transferring our local changes to our remote is done with a push command.	
+		
+		Several push commands are:
+
+		1. Basic push - This command pushes your current branch to the remote repository named origin.
+				This will upload your local commits to GitHub.
+				You must have already committed your changes with git commit.
+
+		2. Force push - If your push is rejected due to non-fast-forward updates (for example, after a rebase), 
+				you can force the push.
+				Warning: This can overwrite changes on the remote repository. Use with caution!
+		3. 
+=====================================
+
+***If you want to clone only subdirectory of any repositiory         ---use sparse--- 
+	with the help of sparse you can clone only directoy you want to work.
+
+commands are:
+
+	-git clone --no-checkout <repository-url>
+	-cd <repository-directory>
+	-git sparse-checkout init
+	-git sparse-checkout set <folder name>
+	-git chekout main
+
+
+
+---------------------------------------------
+
+Here are some commands to practice git pull, git fetch, and git merge:
+1. Setting up
+Create a new repository on your local machine:
+Code
+
+    mkdir git-practice
+    cd git-practice
+    git init
+Create a sample file and commit it:
+Code
+
+    echo "Initial content" > sample.txt
+    git add sample.txt
+    git commit -m "Initial commit"
+Create a remote repository on GitHub or another platform and add it to your local repository:
+Code
+
+    git remote add origin <your-remote-repository-url>
+    git branch -M main
+    git push -u origin main
+2. git fetch
+Simulate changes on the remote repository by editing the sample.txt file on GitHub or pushing new commits from another local repository.
+Fetch the changes from the remote repository:
+Code
+
+    git fetch origin
+This command downloads new commits, branches, and tags from the remote repository without merging them into your local branch. View the fetched changes.
+Code
+
+    git status
+    git log --oneline --graph --all
+You will see that the remote branch origin/main has moved ahead of your local main branch.
+3. git merge
+Merge the fetched changes into your local branch:
+Code
+
+    git merge origin/main
+This command integrates the changes from the origin/main branch into your current branch (main).
+If there are conflicts, resolve them manually in your text editor, then stage and commit the changes:
+Code
+
+    git add <conflicted-file>
+    git commit -m "Resolved merge conflicts"
+Push the merged changes to the remote repository:
+Code
+
+    git push origin main
+4. git pull 
+Simulate changes on the remote repository again.
+Pull the changes from the remote repository:
+Code
+
+    git pull origin main
+This command fetches changes and merges them into your current branch in one step.
+If there are conflicts, resolve them manually and commit the changes.
+5. Other useful commands
+To view all branches.
+Code
+
+    git branch -a
+To see the difference between your local branch and the remote branch:
+Code
+
+    git diff main origin/main
+This should provide a good foundation for practicing git pull, git fetch, and git merge. You can create more branches and experiment with different scenarios to improve your understanding.
+
