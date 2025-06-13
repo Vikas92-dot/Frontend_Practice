@@ -1,12 +1,18 @@
 import { Button } from "../../Components/button"
 import { Input } from "../../Components/Input"
 
-export const UserListUI = ({handleLogOut, userName, searchName, setSearchName, order, setOrder, loading, sortedUsers, setNext, setPrevious, page, setPage, totalPages, navigate}) => {
-    
+export const UserListUI = ({ handleLogOut, userName, searchName, setSearchName,  setOrder, loading, sortedUsers, setNext, setPrevious, page,  totalPages, navigate,theme,setTheme }) => {
+
     return <>
+    <div className={theme ? "bg-dark" : ''}>
         <div className="container py-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2 className="bg-info text-white fw-bold px-4 py-2 rounded">Users List</h2>
+                
+                <div class="form-check form-switch">
+                    <input value={theme} onChange={()=> setTheme((theme)=> !theme)} class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" />
+                    <label class={theme ? "form-check-label text-white" : "form-check-label "} for="flexSwitchCheckChecked">Switch mode</label>
+                </div>
                 <Button onClick={handleLogOut} className="btn btn-danger fw-bold">
                     Log Out
                 </Button>
@@ -29,9 +35,8 @@ export const UserListUI = ({handleLogOut, userName, searchName, setSearchName, o
                     className="form-select"
                     style={{ maxWidth: "200px" }}
                 >
-                    <option value="">Sort by</option>
-                    <option value="ascending">Ascending</option>
-                    <option value="descending">Descending</option>
+                    <option value="ascending">Sort by (Ascending)</option>
+                    <option value="descending">Sort by (Descending)</option>
                 </select>
             </div>
 
@@ -43,7 +48,7 @@ export const UserListUI = ({handleLogOut, userName, searchName, setSearchName, o
                 </div>
             ) : (
                 <div className="table-responsive">
-                    <table className="table table-bordered table-hover text-center align-middle">
+                    <table className={theme ? "table table-dark table-bordered table-hover text-center align-middle" : "table  table-bordered table-hover text-center align-middle"}>
                         <thead className="table-dark">
                             <tr>
                                 <th>Sr No.</th>
@@ -85,21 +90,22 @@ export const UserListUI = ({handleLogOut, userName, searchName, setSearchName, o
                 <Button
                     onClick={setPrevious}
                     disabled={page === 1}
-                    className="btn btn-primary"
+                    className="btn btn-primary fw-bold"
                 >
                     Previous
                 </Button>
-                <span className="fw-bold">
+                <span className={theme ? "fw-bold text-white" : "fw-bold" }>
                     Page {page} of {totalPages}
                 </span>
                 <Button
                     onClick={setNext}
                     disabled={page === totalPages}
-                    className="btn btn-success"
+                    className="btn btn-success fw-bold"
                 >
                     Next
                 </Button>
             </div>
         </div>
+    </div>
     </>
 }

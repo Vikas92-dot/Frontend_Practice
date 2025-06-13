@@ -8,33 +8,33 @@ import { UserDetailsUI } from '../../features/userFeatures/UserDetailsUI';
 
 
 
-function UserDetails(){
+function UserDetails() {
 
-    const{id} = useParams();
-    const[userData, setUserData] = useState({name:'',email:''});
+    const { id } = useParams();
+    const [userData, setUserData] = useState({ name: '', email: '' });
     const navigate = useNavigate();
-    const {userDetails,loading} = useSelector((state)=> state.user);
+    const { userDetails, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(userThunk.show({id}));
-    },[dispatch]);
+    useEffect(() => {
+        dispatch(userThunk.show({ id }));
+    }, [dispatch]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setUserData(userDetails);
-    },[userDetails]);
+    }, [userDetails]);
 
-    const handleDelete = async () =>{
-        if(window.confirm("Do you want to delete it?")){
+    const handleDelete = async () => {
+        if (window.confirm("Do you want to delete it?")) {
 
-        dispatch(userThunk.deleteUser({id})).then((response)=>{
-        if(response.meta.requestStatus === "fulfilled"){        
-            navigate(-1)
+            dispatch(userThunk.deleteUser({ id })).then((response) => {
+                if (response.meta.requestStatus === "fulfilled") {
+                    navigate(-1)
+                }
+            })
         }
-        })
     }
-    }
-    return<>
+    return <>
         {/* <Button onClick={()=>{ navigate(-1)}} className='btn btn-warning mt-4 ms-4'>Dashboard</Button>
         <div className="card p-2 " style={{width:"450px",position:"absolute",top:"2rem",left:"30rem",background: "linear-gradient(to bottom, #FFF8E1,rgb(243, 255, 79))"}}>
             <h2 className='text-center mt-2' >User Details</h2>
@@ -69,7 +69,7 @@ function UserDetails(){
                           </div> : "Delete"}</Button>
             </div>
         </div> */}
-        <UserDetailsUI navigate={navigate} image={image} loading={loading} userData={userData} id={id} handleDelete={handleDelete}  />
+        <UserDetailsUI navigate={navigate} image={image} loading={loading} userData={userData} id={id} handleDelete={handleDelete} />
     </>
 }
 export default UserDetails;

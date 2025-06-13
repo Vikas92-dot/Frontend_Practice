@@ -1,7 +1,7 @@
 import { useState } from "react";
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import { useDispatch } from "react-redux";
 import authThunk from "../../Redux/auth/authThunk";
 import { LoginUI } from "../../features/authFeatures/LoginUI";
@@ -12,8 +12,8 @@ const validationSchema = Yup.object({
     password: Yup.string().required("Password is required.")
 })
 
-function Login(){
-    const[data,setData] = useState({email:'',password:''});
+function Login() {
+    const [data, setData] = useState({ email: '', password: '' });
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -21,27 +21,27 @@ function Login(){
         initialValues: data,
         validationSchema,
         enableReinitialize: true,
-        onSubmit: (values,{setSubmitting}) =>{
-                        
+        onSubmit: (values, { setSubmitting }) => {
+
             const body = {
                 email: values.email,
                 password: values.password
             }
-                
-            dispatch(authThunk.login(body)).then((response)=>{
-                 setSubmitting(false);  
-            if(response.meta.requestStatus === "fulfilled"){
-                            
-                navigate(`/dashboard`)
-            }
-            else {
-            
+
+            dispatch(authThunk.login(body)).then((response) => {
                 setSubmitting(false);
-            }
+                if (response.meta.requestStatus === "fulfilled") {
+
+                    navigate(`/dashboard`)
+                }
+                else {
+
+                    setSubmitting(false);
+                }
             })
-    },
+        },
     })
-    return<>
+    return <>
         <LoginUI formik={formik} />
     </>
 }

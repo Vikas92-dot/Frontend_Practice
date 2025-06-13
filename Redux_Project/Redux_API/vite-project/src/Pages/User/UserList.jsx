@@ -18,6 +18,7 @@ function UserList() {
   const [searchName, setSearchName] = useState("");
   const [order, setOrder] = useState("ascending");
   const [size,setSize] = useState(20);
+  const [theme,setTheme] = useState(false);
 
   
 
@@ -156,7 +157,7 @@ function UserList() {
     //     </Button>
     //   </div>
     // </div>
-    <UserListUI handleLogOut={handleLogOut} userName={userName} searchName={searchName} setSearchName={setSearchName} order={order} setOrder={setOrder} loading={loading} sortedUsers={sortedUsers} setNext={setNext} setPrevious={setPrevious} page={page} setPage={setPage} totalPages={totalPages} navigate={navigate}/>
+    <UserListUI handleLogOut={handleLogOut} userName={userName} searchName={searchName} setSearchName={setSearchName} setOrder={setOrder} loading={loading} sortedUsers={sortedUsers} setNext={setNext} setPrevious={setPrevious} page={page}  totalPages={totalPages} navigate={navigate} theme={theme} setTheme={setTheme}/>
   );
 }
 

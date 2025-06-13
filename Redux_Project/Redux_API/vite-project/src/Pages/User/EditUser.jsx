@@ -15,43 +15,43 @@ const validationSchema = Yup.object({
     password: Yup.string().min(6).required("Password is required")
 })
 
-function EditUser(){
-    const[data,setData] = useState({name:'',email:'',password:''});
-    const{id} = useParams();
+function EditUser() {
+    const [data, setData] = useState({ name: '', email: '', password: '' });
+    const { id } = useParams();
     const navigate = useNavigate();
-    const {userDetails} = useSelector((state)=> state.user);
+    const { userDetails } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         setData(userDetails)
-    },[userDetails]);
+    }, [userDetails]);
 
 
     const formik = useFormik({
-        initialValues:data,
+        initialValues: data,
         validationSchema,
-        enableReinitialize:true,
-        onSubmit: (values,{setSubmitting})=>{
-            
+        enableReinitialize: true,
+        onSubmit: (values, { setSubmitting }) => {
+
             const body = {
                 name: values.name,
                 email: values.email,
                 password: values.password
             }
-            dispatch(userThunk.update({id,body}))
-                    .then((response)=>{
-                    if(response.meta.requestStatus === "fulfilled"){  
-                        setSubmitting(false);      
+            dispatch(userThunk.update({ id, body }))
+                .then((response) => {
+                    if (response.meta.requestStatus === "fulfilled") {
+                        setSubmitting(false);
                         navigate(-1)
                     }
-                    else{
+                    else {
                         setSubmitting(false);
                     }
-                    })
-            
+                })
+
         }
     })
-    return<>
+    return <>
         {/* <div className="container justify-content-center align-item-center d-flex">
             <Button onClick={()=>{ navigate(-1)}} style={{width:"6rem",height:"3rem",position:"absolute",left:"2%"}} className='btn btn-warning mt-4 '>Dashboard</Button>
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgba(252, 255, 79, 0.57))"}}>
@@ -107,7 +107,7 @@ function EditUser(){
                 </form>
             </div>
         </div> */}
-        <EditUserUI navigate={navigate} formik={formik}  />
+        <EditUserUI navigate={navigate} formik={formik} />
     </>
 }
 export default EditUser;

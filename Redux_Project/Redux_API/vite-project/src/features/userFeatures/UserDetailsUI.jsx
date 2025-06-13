@@ -2,8 +2,11 @@ import { Button } from "../../Components/button"
 
 export const UserDetailsUI = ({navigate, image, loading, userData, id, handleDelete}) => {
     return <>
-        <Button onClick={() => { navigate(-1) }} className='btn btn-warning mt-4 ms-4'>Dashboard</Button>
-        <div className="card p-2 " style={{ width: "450px", position: "absolute", top: "2rem", left: "30rem", background: "linear-gradient(to bottom, #FFF8E1,rgb(243, 255, 79))" }}>
+
+    <div className="container justify-content-center py-4 d-flex align-items-center ">
+
+        <Button style={{position:"absolute", top:"1%", left:"1%"}} onClick={() => { navigate(-1) }} className='btn btn-warning mt-4 ms-4'>Dashboard</Button>
+        <div className="card p-2 " style={{ width: "450px", background: "linear-gradient(to bottom, #FFF8E1,rgb(243, 255, 79))" }}>
             <h2 className='text-center mt-2' >User Details</h2>
 
             <img className="card-img-top" src={image} alt="User Image" style={{ width: "100%", height: "300px" }} />
@@ -36,5 +39,6 @@ export const UserDetailsUI = ({navigate, image, loading, userData, id, handleDel
                 </div> : "Delete"}</Button>
             </div>
         </div>
+    </div>
     </>
 }

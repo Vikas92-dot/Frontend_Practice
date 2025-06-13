@@ -1,7 +1,7 @@
 import { useState } from "react";
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import { Button } from "../../Components/button";
 import { useDispatch } from "react-redux";
 import authThunk from "../../Redux/auth/authThunk";
@@ -16,37 +16,37 @@ const validationSchema = Yup.object({
     password: Yup.string().min(6).required("Password is required.")
 })
 
-function Register(){
-    const[data,setData] = useState({name:'',email:'',password:''});
+function Register() {
+    const [data, setData] = useState({ name: '', email: '', password: '' });
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
     const formik = useFormik({
         initialValues: data,
         validationSchema,
         enableReinitialize: true,
-        onSubmit: (values,{setSubmitting}) =>{
-            const {email} = values;
+        onSubmit: (values, { setSubmitting }) => {
+            const { email } = values;
             const body = {
                 name: values.name,
                 email: values.email,
                 password: values.password
             }
-             dispatch(authThunk.register(body)).then((response)=>{
-                 setSubmitting(false);  
-                if(response.meta.requestStatus === "fulfilled"){
-                                
+            dispatch(authThunk.register(body)).then((response) => {
+                setSubmitting(false);
+                if (response.meta.requestStatus === "fulfilled") {
+
                     navigate(`/email-verification/${email}`)
                 }
                 else {
                     setSubmitting(false);
                 }
-                })
-        
+            })
+
         }
     })
-    
-    return<>
+
+    return <>
         {/* <div className="container justify-content-center align-item-center d-flex">
             <div className="row mt-5" style={{boxShadow:"10px 10px 10px grey", height:"auto",width:"300px", borderRadius:"10px",background: "linear-gradient(to bottom, #FFF8E1,rgb(255, 217, 79))"}}>
                 <h4 className="text-center p-2 text-white bg-primary" style={{width:"100%",height:"50px",borderRadius:"5px"}}>Registration Form</h4>
@@ -109,7 +109,7 @@ function Register(){
                     </p>
             </div>
         </div> */}
-        <RegisterUI formik={formik}/>
+        <RegisterUI formik={formik} />
     </>
 }
 export default Register;

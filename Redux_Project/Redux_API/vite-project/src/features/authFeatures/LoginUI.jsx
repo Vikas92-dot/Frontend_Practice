@@ -18,6 +18,7 @@ export function LoginUI({formik}){
                         className="form-control mb-2" 
                         type="email" 
                         placeholder="Enter your Email"
+                        autoComplete='current-email'
                         />
                         {formik.touched.email && formik.errors.email && (
                           <div className="text-danger">{formik.errors.email}</div>
