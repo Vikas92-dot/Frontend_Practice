@@ -1,0 +1,134 @@
+Bilkul bhai! Ye teen Next.js ke **data fetching methods** hain jo alag-alag situations me use hote hain. Aao simple language me **difference**, **kab use karna hai**, aur **examples ke sath** samjhte hain — aur haan, **connection bhi batata hoon**.
+
+---
+
+## ✅ 1. `getStaticProps`
+
+### 📌 Use when: **Data build-time pe fix ho (static ho)**
+
+* Page build time pe data fetch hota hai.
+* Fastest page load (kisi request pe data fetch nahi hota).
+* SEO friendly.
+
+### 🧠 Kab use kare:
+
+* Blog posts
+* Product details (agar frequently update nahi hote)
+* Documentation pages
+
+### 🔧 Example:
+
+```js
+export async function getStaticProps() {
+  const res = await fetch('https://dummyjson.com/products');
+  const data = await res.json();
+
+  return {
+    props: {
+      products: data.products,
+    },
+  };
+}
+```
+
+### 🧭 Use with: **Dynamic routes + getStaticPaths**
+
+---
+
+## ✅ 2. `getServerSideProps`
+
+### 📌 Use when: **Data har request pe update ho sakta hai**
+
+* Data har bar **server se fetch** hota hai.
+* Useful for **frequently changing data**.
+* Good for personalization, dashboards, auth-based data.
+
+### 🧠 Kab use kare:
+
+* Admin dashboards
+* User-specific data
+* Real-time price data
+
+### 🔧 Example:
+
+```js
+export async function getServerSideProps(context) {
+  const res = await fetch('https://dummyjson.com/products');
+  const data = await res.json();
+
+  return {
+    props: {
+      products: data.products,
+    },
+  };
+}
+```
+
+➡️ Ye page **build ke baad bhi** har request pe fresh data dega.
+
+---
+
+## ✅ 3. `getStaticPaths`
+
+### 📌 Use with: **`getStaticProps` + dynamic routes**
+
+* Batata hai: kaunse dynamic routes static build time pe generate karne hain.
+
+### 🧠 Kab use kare:
+
+* Jab tumhe `/product/[id]`, `/user/[id]` jese dynamic page static banana ho.
+
+### 🔧 Example:
+
+```js
+export async function getStaticPaths() {
+  const res = await fetch('https://dummyjson.com/users');
+  const data = await res.json();
+
+  const paths = data.users.map((user) => ({
+    params: { id: user.id.toString() },
+  }));
+
+  return { paths, fallback: false };
+}
+```
+
+➡️ Ye `getStaticProps` ke sath hi use hota hai.
+
+---
+
+## 🔗 **Teeno me connection kya hai?**
+
+| Function             | Role                                                                     |
+| -------------------- | ------------------------------------------------------------------------ |
+| `getStaticProps`     | Page ko **static** banata hai, data build time pe laata hai              |
+| `getServerSideProps` | Page ko **server-rendered** banata hai, har request pe data laata hai    |
+| `getStaticPaths`     | `getStaticProps` ke sath use hota hai, **dynamic routes** banane ke liye |
+
+---
+
+## 🧠 Quick Comparison Table:
+
+| Feature                 | `getStaticProps`        | `getServerSideProps` | `getStaticPaths` |
+| ----------------------- | ----------------------- | -------------------- | ---------------- |
+| Runs when?              | Build time              | Every request        | Build time       |
+| Good for SEO?           | ✅                       | ✅                    | ✅                |
+| Data always fresh?      | ❌ (unless revalidate)   | ✅                    | ❌                |
+| Use with dynamic route? | ✅ with `getStaticPaths` | ✅                    | ✅                |
+| Speed                   | ⚡ Very fast             | 🐢 Slower            | ⚡ Very fast      |
+
+---
+
+## ✅ Real-world Example Scenario:
+
+### Use Case: E-commerce website
+
+| Page                         | Use Function                        |
+| ---------------------------- | ----------------------------------- |
+| `/products` list page        | `getStaticProps`                    |
+| `/products/[id]` detail page | `getStaticProps` + `getStaticPaths` |
+| `/admin/dashboard`           | `getServerSideProps`                |
+
+---
+
+Agar tum chaho to main [ISR (Incremental Static Regeneration)](f), [fallback ke types](f), ya [in functions ka combination in one app](f) bhi detail me samjha sakta hoon.
