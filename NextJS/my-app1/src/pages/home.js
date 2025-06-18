@@ -1,7 +1,10 @@
 import React from 'react'
 import Layout from '@/Components/Layout'
 
-const Home = () => {
+const Home = async () => {
+    await new Promise((resolved)=>{
+        setTimeout(resolved,2000);
+    })
     return (
         <Layout >
             <div className="container mt-2">
