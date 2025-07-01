@@ -7,17 +7,17 @@ const Transition = () => {
   const [isPending, startTransition] = useTransition();
 
   const handleChange = (e) => {
-      setInputValue(e.target.value);
-      //mark this update as a transition non-urgent
-      startTransition(() => {
-        setDisplayValue(e.target.value);
-      });
+    setInputValue(e.target.value);
+    //mark this update as a transition non-urgent
+    startTransition(() => {
+      setDisplayValue(e.target.value);
+    });
   };
-  return (
+  return ( 
     <>
-    <input type="text" value={inputValue} onChange={handleChange} />
-    {isPending && <span>Loading...</span>}
-    <p>Search result for: {displayValue}</p> 
+      <input type="text" value={inputValue} onChange={handleChange} />
+      {isPending && <span>Loading...</span>}
+      <p>Search result for: {displayValue}</p>
     </>
   );
 };

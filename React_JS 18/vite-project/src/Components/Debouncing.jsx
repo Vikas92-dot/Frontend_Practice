@@ -12,7 +12,6 @@ export const useDebounce = (value,delay)=>{
             clearTimeout(handler);
         }
     },[value,delay]);
-
     return debouncedValue;
 }
 
@@ -30,7 +29,7 @@ const Debouncing=()=>{
         setSearchTerm(e.target.value);
     }
     return<>
-        <input type="text" placeholder="Search..." value={searchTerm} onChange={handleChange} name="" id="" />
+        <input type="text" placeholder="Search..." value={searchTerm} onChange={handleChange} name=""/>
     </>
 }
 export default Debouncing;

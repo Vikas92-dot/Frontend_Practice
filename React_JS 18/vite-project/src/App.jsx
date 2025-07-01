@@ -1,12 +1,30 @@
+import AbortExample from "./Components/AbortExample";
 import Debouncing from "./Components/Debouncing";
 import DeferredValue from "./Components/DeferredValue";
+import ErrorBoundaryExample from "./Components/ErrorBoundaryExample";
+import EventProp from "./Components/EventProp";
+import LayoutEffectExample from "./Components/LayoutEffectExample";
+import MemoExample from "./Components/MemoExample";
+import StepperExample from "./Components/StepperExample";
+import Throttling from "./Components/Throttling";
 import Transition from "./Components/Transition";
+import VirtualizedList from "./Components/VirtualizedList";
+import VirtualizedWindow from "./Components/VirtualizedWindow";
 
 const App=()=>{
   return<>
     {/* <Transition/> */}
     {/* <DeferredValue/> */}
     <Debouncing/>
+    {/* <Throttling/> */}
+    {/* <VirtualizedList/> */}
+    {/* <LayoutEffectExample/> */}
+    {/* <VirtualizedWindow/> */}
+    {/* <EventProp/> */}
+    {/* <ErrorBoundaryExample/> */}
+    {/* <AbortExample/> */}
+    {/* <MemoExample/> */}
+    {/* <StepperExample/> */}
   </>
 }
 export default App;
