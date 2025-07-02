@@ -15,7 +15,7 @@ const Transition = () => {
   };
   return ( 
     <>
-      <input type="text" value={inputValue} onChange={handleChange} />
+      <input type="text" value={inputValue} onChange={handleChange}/>
       {isPending && <span>Loading...</span>}
       <p>Search result for: {displayValue}</p>
     </>

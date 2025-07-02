@@ -1,4 +1,5 @@
 import AbortExample from "./Components/AbortExample";
+import DebouncedSearch from "./Components/DebouncedSearch";
 import Debouncing from "./Components/Debouncing";
 import DeferredValue from "./Components/DeferredValue";
 import ErrorBoundaryExample from "./Components/ErrorBoundaryExample";
@@ -10,12 +11,13 @@ import Throttling from "./Components/Throttling";
 import Transition from "./Components/Transition";
 import VirtualizedList from "./Components/VirtualizedList";
 import VirtualizedWindow from "./Components/VirtualizedWindow";
+import MiniTask from "./Task/MiniTask";
 
 const App=()=>{
   return<>
     {/* <Transition/> */}
     {/* <DeferredValue/> */}
-    <Debouncing/>
+    {/* <Debouncing/> */}
     {/* <Throttling/> */}
     {/* <VirtualizedList/> */}
     {/* <LayoutEffectExample/> */}
@@ -25,6 +27,8 @@ const App=()=>{
     {/* <AbortExample/> */}
     {/* <MemoExample/> */}
     {/* <StepperExample/> */}
+    <DebouncedSearch/>
+    {/* <MiniTask/> */}
   </>
 }
 export default App;
